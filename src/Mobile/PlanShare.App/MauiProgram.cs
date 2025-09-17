@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using PlanShare.App.Constants;
 
 namespace PlanShare.App
 {
@@ -11,13 +11,12 @@ namespace PlanShare.App
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Raleway-Regular.ttf", FontFamily.MAIN_FONT_REGULAR);
+                    fonts.AddFont("Raleway-Black.ttf", FontFamily.MAIN_FONT_BLACK);
+                    fonts.AddFont("Raleway-Thin.ttf", FontFamily.MAIN_FONT_THIN);
+                    fonts.AddFont("WorkSans-Regular.ttf", FontFamily.SECONDARY_FONT_REGULAR);                    
+                    fonts.AddFont("WorkSans-Black.ttf", FontFamily.SECONDARY_FONT_BLACK);
                 });
-
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
 
             return builder.Build();
         }
