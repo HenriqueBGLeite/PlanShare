@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.OnBoarding"
     x:DataType="viewModel:OnBoardingViewModel"
     Shell.NavBarIsVisible="False">
@@ -15,7 +16,7 @@
             FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
             FontSize="18"
             HorizontalOptions="Center"
-            Text="Tarefas pequenas, grandes resultados." />
+            Text="{Static resourceFile:ResourceTexts.SUBTITLE_SMALL_TASKS_BIG_RESULTS}" />
 
         <Button
             BackgroundColor="#F6F6FB"
@@ -23,7 +24,7 @@
             CornerRadius="20"
             HeightRequest="60"
             ImageSource="google_logo.png"
-            Text="Continuar com o Google"
+            Text="{Static resourceFile:ResourceTexts.LOGIN_WITH_GOOGLE_ACCOUNT}"
             TextColor="Black" />
 
         <Button
@@ -31,7 +32,7 @@
             Command="{Binding LoginWithEmailAndPasswordCommand}"
             CornerRadius="20"
             HeightRequest="60"
-            Text="Login com Email e senha" />
+            Text="{Static resourceFile:ResourceTexts.LOGIN_WITH_EMAIL_PASSWORD}" />
 
         <VerticalStackLayout Padding="0,6,0,0" HeightRequest="40">
             <VerticalStackLayout.GestureRecognizers>
@@ -40,13 +41,14 @@
             <Label FontSize="18" HorizontalOptions="Center">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Não tem uma conta?" />
+                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="{Static resourceFile:ResourceTexts.LABEL_DONT_HAVE_ACCOUNT}" />
                         <Span Text=" " />
                         <Span
                             FontAttributes="Bold"
                             FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
-                            Text="Cria a sua conta!"
-                            TextColor="#0065F2" />
+                            Text="{Static resourceFile:ResourceTexts.LABEL_CLICKED_CREATE_ACCOUNT}"
+                            TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                        Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
