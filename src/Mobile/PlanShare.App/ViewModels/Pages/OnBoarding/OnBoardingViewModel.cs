@@ -3,10 +3,17 @@ using PlanShare.App.Navigation;
 
 namespace PlanShare.App.ViewModels.Pages.OnBoarding;
 
-public partial class OnBoardingViewModel
+public partial class OnBoardingViewModel : ViewModelBase
 {
+    private readonly INavigationService _navigationService;
+
+    public OnBoardingViewModel(INavigationService navigationService)
+    {
+        _navigationService = navigationService;
+    }
+
     [RelayCommand]
-    public async Task LoginWithEmailAndPassword() => await Shell.Current.GoToAsync(RoutePages.LOGIN_PAGE);
+    public async Task LoginWithEmailAndPassword() => await _navigationService.GoToAsync(RoutePages.LOGIN_PAGE);
 
     [RelayCommand]
     public void LoginWithGoogle()

@@ -4,9 +4,9 @@ namespace PlanShare.App.Views.Pages.Login.DoLogin;
 
 public partial class DoLoginPage : ContentPage
 {
-	public DoLoginPage()
+	public DoLoginPage(DoLoginViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = new DoLoginViewModel();
+		BindingContext = viewModel;
 	}
 }
