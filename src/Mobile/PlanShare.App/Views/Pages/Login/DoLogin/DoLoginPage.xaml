@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:PlanShare.App.Views.Components.Inputs"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
-    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources">
+    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
+    xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.Login.DoLogin"
+    x:DataType="viewModel:DoLoginViewModel">
     <VerticalStackLayout Spacing="30">
         <Label
             Margin="0,0,0,10"
@@ -30,6 +32,6 @@
                 TextDecorations="Underline" />
         </VerticalStackLayout>
 
-        <Button Text="{Static resourceFile:ResourceTexts.BUTTON_LOGIN}" />
+        <Button Command="{Binding DoLoginCommand}" Text="{Static resourceFile:ResourceTexts.BUTTON_LOGIN}" />
     </VerticalStackLayout>
 </ContentPage>
