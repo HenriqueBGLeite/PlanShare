@@ -2,8 +2,44 @@
 <ContentPage
     x:Class="PlanShare.App.Views.Pages.User.Register.RegisterUserAccountPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <VerticalStackLayout>
-        <Label Text="Criar minha conta" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:PlanShare.App.Views.Components.Inputs"
+    xmlns:fontFamily="clr-namespace:PlanShare.App.Constants">
+    <VerticalStackLayout Spacing="30">
+        <Label Style="{StaticResource PageTitle}" Text="Criar minha conta" />
+
+        <Label Margin="0,-10,0,10" Text="Comande sua rotina com facilidade—porque você merece mais tempo para o que ama!" />
+
+        <component:EntryAndLabelComponent Title="Nome" Placeholder="Bruce Wayne" />
+
+        <component:EntryAndLabelComponent
+            Title="E-mail"
+            Keyboard="Email"
+            Placeholder="bruce@wayne.com" />
+
+        <component:EntryAndLabelPasswordComponent Title="Senha" />
+
+        <Button
+            Margin="0,40"
+            BackgroundColor="#0065F2"
+            CornerRadius="20"
+            HeightRequest="60"
+            Text="Criar minha conta" />
+
+        <VerticalStackLayout Padding="0,6,0,0" HeightRequest="40">
+            <Label FontSize="18" HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Já possui uma conta?" />
+                        <Span Text=" " />
+                        <Span
+                            FontAttributes="Bold"
+                            FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
+                            Text="Faça login!"
+                            TextColor="#0065F2" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
