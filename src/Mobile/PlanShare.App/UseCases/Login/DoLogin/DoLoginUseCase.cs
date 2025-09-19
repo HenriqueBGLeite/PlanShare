@@ -1,7 +1,10 @@
 ﻿using PlanShare.App.Data.Network.Api;
 using PlanShare.App.Data.Storage.Preferences.User;
 using PlanShare.App.Data.Storage.SecureStorage.Tokens;
+using PlanShare.App.Extensions;
+using PlanShare.App.Resources;
 using PlanShare.Communication.Requests;
+using PlanShare.Communication.Responses;
 
 namespace PlanShare.App.UseCases.Login.DoLogin;
 
@@ -30,10 +33,17 @@ public class DoLoginUseCase : IDoLoginUseCase
 
         var response = await _loginApi.Login(request);
 
-        var user = new Models.ValueObjects.User(response.Id, response.Name);
-        var tokens = new Models.ValueObjects.Tokens(response.Tokens.AccessToken, response.Tokens.RefreshToken);
+        if (response.IsSuccessful)
+        {
+            var user = new Models.ValueObjects.User(response.Content.Id, response.Content.Name);
+            var tokens = new Models.ValueObjects.Tokens(response.Content.Tokens.AccessToken, response.Content.Tokens.RefreshToken);
 
-        _userStorage.Save(user);
-        await _tokenStorage.Save(tokens);
+            _userStorage.Save(user);
+            await _tokenStorage.Save(tokens);
+        }
+        else
+        {
+            var errorResponse = await response.Error.GetResponseError();
+        }
     }
 }
