@@ -4,5 +4,5 @@ namespace PlanShare.App.UseCases.User.Register;
 
 public interface IRegisterUserUserCase
 {
-    Task Execute(UserRegisterAccount user);
+    Task Execute(UserRegisterAccount model);
 }
