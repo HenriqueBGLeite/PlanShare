@@ -3,57 +3,81 @@
     x:Class="PlanShare.App.Views.Pages.User.Register.RegisterUserAccountPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:component="clr-namespace:PlanShare.App.Views.Components.Inputs"
+    xmlns:animationComponent="clr-namespace:PlanShare.App.Views.Components.StatusPage"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:inputsComponent="clr-namespace:PlanShare.App.Views.Components.Inputs"
+    xmlns:models="clr-namespace:PlanShare.App.Models"
     xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.User.Register"
     x:DataType="viewModel:RegisterUserAccountViewModel">
-    <VerticalStackLayout Spacing="30">
-        <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.LABEL_TITLE_CREATE_MY_ACCOUNT}" />
+    <Grid>
+        <VerticalStackLayout IsVisible="False" Spacing="30">
+            <VerticalStackLayout.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="VerticalStackLayout"
+                    Value="{Static models:StatusPage.Default}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </VerticalStackLayout.Triggers>
 
-        <Label Margin="0,-10,0,10" Text="{Static resourceFile:ResourceTexts.SUBTITLE_REGISTER_ACCOUNT}" />
+            <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.LABEL_TITLE_CREATE_MY_ACCOUNT}" />
 
-        <component:EntryAndLabelComponent
-            Title="{Static resourceFile:ResourceTexts.LABEL_NAME}"
-            Placeholder="Bruce Wayne"
-            TextValue="{Binding Model.Name}" />
+            <Label Margin="0,-10,0,10" Text="{Static resourceFile:ResourceTexts.SUBTITLE_REGISTER_ACCOUNT}" />
 
-        <component:EntryAndLabelComponent
-            Title="{Static resourceFile:ResourceTexts.LABEL_EMAIL}"
-            Keyboard="Email"
-            Placeholder="bruce@wayne.com"
-            TextValue="{Binding Model.Email}" />
+            <inputsComponent:EntryAndLabelComponent
+                Title="{Static resourceFile:ResourceTexts.LABEL_NAME}"
+                Placeholder="Bruce Wayne"
+                TextValue="{Binding Model.Name}" />
 
-        <component:EntryAndLabelPasswordComponent Title="{Static resourceFile:ResourceTexts.LABEL_PASSWORD}" TextValue="{Binding Model.Password}" />
+            <inputsComponent:EntryAndLabelComponent
+                Title="{Static resourceFile:ResourceTexts.LABEL_EMAIL}"
+                Keyboard="Email"
+                Placeholder="bruce@wayne.com"
+                TextValue="{Binding Model.Email}" />
 
-        <Button
-            Margin="0,40"
-            BackgroundColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
-                                              Dark={StaticResource HIGHLIGHT_COLOR_DARK}}"
-            Command="{Binding RegisterAccountCommand}"
-            CornerRadius="20"
-            HeightRequest="60"
-            Text="{Static resourceFile:ResourceTexts.LABEL_CLICKED_CREATE_MY_ACCOUNT}" />
+            <inputsComponent:EntryAndLabelPasswordComponent Title="{Static resourceFile:ResourceTexts.LABEL_PASSWORD}" TextValue="{Binding Model.Password}" />
 
-        <VerticalStackLayout Padding="0,6,0,0" HeightRequest="40">
-            <VerticalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
-            </VerticalStackLayout.GestureRecognizers>
+            <Button
+                Margin="0,40"
+                BackgroundColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                  Dark={StaticResource HIGHLIGHT_COLOR_DARK}}"
+                Command="{Binding RegisterAccountCommand}"
+                CornerRadius="20"
+                HeightRequest="60"
+                Text="{Static resourceFile:ResourceTexts.LABEL_CLICKED_CREATE_MY_ACCOUNT}" />
 
-            <Label FontSize="18" HorizontalOptions="Center">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="{Static resourceFile:ResourceTexts.LABEL_ALREADY_HAVE_ACCOUNT}" />
-                        <Span Text=" " />
-                        <Span
-                            FontAttributes="Bold"
-                            FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
-                            Text="{Static resourceFile:ResourceTexts.LABEL_CLICKED_SIGN_IN}"
-                            TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
-                                                        Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <VerticalStackLayout Padding="0,6,0,0" HeightRequest="40">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Label FontSize="18" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="{Static resourceFile:ResourceTexts.LABEL_ALREADY_HAVE_ACCOUNT}" />
+                            <Span Text=" " />
+                            <Span
+                                FontAttributes="Bold"
+                                FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
+                                Text="{Static resourceFile:ResourceTexts.LABEL_CLICKED_SIGN_IN}"
+                                TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                            Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </VerticalStackLayout>
         </VerticalStackLayout>
-    </VerticalStackLayout>
+
+        <animationComponent:AnimationSendInformationComponent IsVisible="False">
+            <animationComponent:AnimationSendInformationComponent.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="animationComponent:AnimationSendInformationComponent"
+                    Value="{Static models:StatusPage.Sending}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </animationComponent:AnimationSendInformationComponent.Triggers>
+        </animationComponent:AnimationSendInformationComponent>
+    </Grid>
 </ContentPage>

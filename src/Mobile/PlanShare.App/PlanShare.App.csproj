@@ -4,6 +4,8 @@
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 
+		<LangVersion>preview</LangVersion>
+
 		<!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
 		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
@@ -72,10 +74,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.9" />
 		<PackageReference Include="Refit" Version="8.0.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Resources\Raw\" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -117,6 +116,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Components\Inputs\EntryAndLabelPasswordComponent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Components\StatusPage\AnimationSendInformationComponent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Pages\Login\DoLogin\DoLoginPage.xaml">
