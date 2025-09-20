@@ -24,15 +24,15 @@
             <Label
                 Margin="0,0,0,10"
                 Style="{StaticResource PageTitle}"
-                Text="{Static resourceFile:ResourceTexts.LABEL_TITLE_LOGIN}" />
+                Text="{Static resourceFile:ResourceTexts.PHRASE_DO_LOGIN}" />
 
             <inputsComponent:EntryAndLabelComponent
-                Title="{Static resourceFile:ResourceTexts.LABEL_EMAIL}"
+                Title="{Static resourceFile:ResourceTexts.TITLE_EMAIL}"
                 Keyboard="Email"
                 Placeholder="bruce@waynetech.com"
                 TextValue="{Binding Model.Email}" />
 
-            <inputsComponent:EntryAndLabelPasswordComponent Title="{Static resourceFile:ResourceTexts.LABEL_PASSWORD}" TextValue="{Binding Model.Password}" />
+            <inputsComponent:EntryAndLabelPasswordComponent Title="{Static resourceFile:ResourceTexts.TITLE_PASSWORD}" TextValue="{Binding Model.Password}" />
 
             <VerticalStackLayout
                 Margin="0,10,0,40"
@@ -41,11 +41,11 @@
                 <Label
                     FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
                     HorizontalOptions="End"
-                    Text="{Static resourceFile:ResourceTexts.LINK_FORGOT_PASSWORD}"
+                    Text="{Static resourceFile:ResourceTexts.PHRASE_FORGOT_YOUR_PASSWORD}"
                     TextDecorations="Underline" />
             </VerticalStackLayout>
 
-            <Button Command="{Binding DoLoginCommand}" Text="{Static resourceFile:ResourceTexts.BUTTON_LOGIN}" />
+            <Button Command="{Binding DoLoginCommand}" Text="{Static resourceFile:ResourceTexts.PHRASE_LOGIN}" />
         </VerticalStackLayout>
 
         <animationComponent:AnimationSendInformationComponent IsVisible="False">

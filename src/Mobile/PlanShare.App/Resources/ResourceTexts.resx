@@ -117,61 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LABEL_CLICKED_CREATE_ACCOUNT" xml:space="preserve">
-    <value>Create your account!</value>
+	<data name="DELETE_ACCOUNT" xml:space="preserve">
+    <value>Delete my account</value>
   </data>
-  <data name="LABEL_DONT_HAVE_ACCOUNT" xml:space="preserve">
-    <value>Don't have an account?</value>
+	<data name="FOLLOWING_ERRORS_WERE_FOUND" xml:space="preserve">
+    <value>The following errors were found</value>
   </data>
-  <data name="LABEL_EMAIL" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="LABEL_LOGIN" xml:space="preserve">
-    <value>Sign in</value>
-  </data>
-  <data name="BUTTON_LOGIN" xml:space="preserve">
-    <value>Sign in</value>
-  </data>
-  <data name="LABEL_PASSWORD" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="LINK_FORGOT_PASSWORD" xml:space="preserve">
-    <value>Forgot your password?</value>
-  </data>
-  <data name="LOGIN_WITH_EMAIL_PASSWORD" xml:space="preserve">
+	<data name="LOGIN_WITH_EMAIL_PASSWORD" xml:space="preserve">
     <value>Login with Email and Password</value>
   </data>
-  <data name="LOGIN_WITH_GOOGLE_ACCOUNT" xml:space="preserve">
-    <value>Continue with Google</value>
-  </data>
-  <data name="SUBTITLE_REGISTER_ACCOUNT" xml:space="preserve">
-    <value>Take charge of your routine with ease—because you deserve more time for what you love!</value>
-  </data>
-  <data name="SUBTITLE_SMALL_TASKS_BIG_RESULTS" xml:space="preserve">
-    <value>Small tasks, big results.</value>
-  </data>
-  <data name="LABEL_NAME" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="LABEL_CLICKED_CREATE_MY_ACCOUNT" xml:space="preserve">
-    <value>Create my account</value>
-  </data>
-  <data name="LABEL_ALREADY_HAVE_ACCOUNT" xml:space="preserve">
+	<data name="PHRASE_ALREADY_HAS_ACCOUNT" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
-  <data name="LABEL_CLICKED_SIGN_IN" xml:space="preserve">
-    <value>Sign in!</value>
+	<data name="PHRASE_CONTINUE_WITH_GOOGLE" xml:space="preserve">
+    <value>Continue with Google</value>
   </data>
-  <data name="PLACEHOLDER_PASSWORD_MIN_6_CHARACTERS" xml:space="preserve">
-    <value>At least 6 characters</value>
+	<data name="PHRASE_DONT_HAVE_ACCOUNT" xml:space="preserve">
+    <value>Don't have an account?</value>
   </data>
-  <data name="LABEL_TITLE_CREATE_MY_ACCOUNT" xml:space="preserve">
+	<data name="PHRASE_DO_LOGIN" xml:space="preserve">
+    <value>Log in!</value>
+  </data>
+	<data name="PHRASE_FORGOT_YOUR_PASSWORD" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+	<data name="PHRASE_LOGIN" xml:space="preserve">
+    <value>Login</value>
+  </data>
+	<data name="PHRASE_PASSWORD_REQUIREMENTS" xml:space="preserve">
+    <value>Minimum 6 characters</value>
+  </data>
+	<data name="PHRASE_REGISTER_YOUR_ACCOUNT" xml:space="preserve">
+    <value>Create your account!</value>
+  </data>
+	<data name="PHRASE_SMALL_TASKS_BIG_RESULTS" xml:space="preserve">
+    <value>Small tasks, big results</value>
+  </data>
+	<data name="SERVER_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>An error occurred while communicating with the server. Please try again later.</value>
+  </data>
+	<data name="SUBTITLE_REGISTER_ACCOUNT" xml:space="preserve">
+    <value>Control your routine with ease - because you deserve more time for what you love!</value>
+  </data>
+	<data name="TITLE_EMAIL" xml:space="preserve">
+    <value>Email</value>
+  </data>
+	<data name="TITLE_NAME" xml:space="preserve">
+    <value>Name</value>
+  </data>
+	<data name="TITLE_PASSWORD" xml:space="preserve">
+    <value>Password</value>
+  </data>
+	<data name="TITLE_REGISTER_MY_ACCOUNT" xml:space="preserve">
     <value>Create my account</value>
   </data>
-  <data name="LABEL_TITLE_LOGIN" xml:space="preserve">
-    <value>Sign In</value>
+	<data name="TITLE_WELCOME" xml:space="preserve">
+    <value>Welcome</value>
   </data>
-  <data name="SERVER_COMMUNICATION_ERROR" xml:space="preserve">
-    <value>An error occurred while communicating with the server. Please try again later.</value>
+	<data name="TRY_IT_AGAIN" xml:space="preserve">
+    <value>Try it again</value>
+  </data>
+	<data name="UPDATE_PROFILE" xml:space="preserve">
+    <value>Update profile</value>
   </data>
 </root>

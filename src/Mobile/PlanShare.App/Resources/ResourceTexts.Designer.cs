@@ -61,119 +61,20 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign in.
+        ///   Looks up a localized string similar to Delete my account.
         /// </summary>
-        public static string BUTTON_LOGIN {
+        public static string DELETE_ACCOUNT {
             get {
-                return ResourceManager.GetString("BUTTON_LOGIN", resourceCulture);
+                return ResourceManager.GetString("DELETE_ACCOUNT", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Already have an account?.
+        ///   Looks up a localized string similar to The following errors were found.
         /// </summary>
-        public static string LABEL_ALREADY_HAVE_ACCOUNT {
+        public static string FOLLOWING_ERRORS_WERE_FOUND {
             get {
-                return ResourceManager.GetString("LABEL_ALREADY_HAVE_ACCOUNT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create your account!.
-        /// </summary>
-        public static string LABEL_CLICKED_CREATE_ACCOUNT {
-            get {
-                return ResourceManager.GetString("LABEL_CLICKED_CREATE_ACCOUNT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create my account.
-        /// </summary>
-        public static string LABEL_CLICKED_CREATE_MY_ACCOUNT {
-            get {
-                return ResourceManager.GetString("LABEL_CLICKED_CREATE_MY_ACCOUNT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign in!.
-        /// </summary>
-        public static string LABEL_CLICKED_SIGN_IN {
-            get {
-                return ResourceManager.GetString("LABEL_CLICKED_SIGN_IN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t have an account?.
-        /// </summary>
-        public static string LABEL_DONT_HAVE_ACCOUNT {
-            get {
-                return ResourceManager.GetString("LABEL_DONT_HAVE_ACCOUNT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string LABEL_EMAIL {
-            get {
-                return ResourceManager.GetString("LABEL_EMAIL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign in.
-        /// </summary>
-        public static string LABEL_LOGIN {
-            get {
-                return ResourceManager.GetString("LABEL_LOGIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string LABEL_NAME {
-            get {
-                return ResourceManager.GetString("LABEL_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password.
-        /// </summary>
-        public static string LABEL_PASSWORD {
-            get {
-                return ResourceManager.GetString("LABEL_PASSWORD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create my account.
-        /// </summary>
-        public static string LABEL_TITLE_CREATE_MY_ACCOUNT {
-            get {
-                return ResourceManager.GetString("LABEL_TITLE_CREATE_MY_ACCOUNT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign In.
-        /// </summary>
-        public static string LABEL_TITLE_LOGIN {
-            get {
-                return ResourceManager.GetString("LABEL_TITLE_LOGIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forgot your password?.
-        /// </summary>
-        public static string LINK_FORGOT_PASSWORD {
-            get {
-                return ResourceManager.GetString("LINK_FORGOT_PASSWORD", resourceCulture);
+                return ResourceManager.GetString("FOLLOWING_ERRORS_WERE_FOUND", resourceCulture);
             }
         }
         
@@ -187,20 +88,83 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue with Google.
+        ///   Looks up a localized string similar to Already have an account?.
         /// </summary>
-        public static string LOGIN_WITH_GOOGLE_ACCOUNT {
+        public static string PHRASE_ALREADY_HAS_ACCOUNT {
             get {
-                return ResourceManager.GetString("LOGIN_WITH_GOOGLE_ACCOUNT", resourceCulture);
+                return ResourceManager.GetString("PHRASE_ALREADY_HAS_ACCOUNT", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to At least 6 characters.
+        ///   Looks up a localized string similar to Continue with Google.
         /// </summary>
-        public static string PLACEHOLDER_PASSWORD_MIN_6_CHARACTERS {
+        public static string PHRASE_CONTINUE_WITH_GOOGLE {
             get {
-                return ResourceManager.GetString("PLACEHOLDER_PASSWORD_MIN_6_CHARACTERS", resourceCulture);
+                return ResourceManager.GetString("PHRASE_CONTINUE_WITH_GOOGLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in!.
+        /// </summary>
+        public static string PHRASE_DO_LOGIN {
+            get {
+                return ResourceManager.GetString("PHRASE_DO_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t have an account?.
+        /// </summary>
+        public static string PHRASE_DONT_HAVE_ACCOUNT {
+            get {
+                return ResourceManager.GetString("PHRASE_DONT_HAVE_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot your password?.
+        /// </summary>
+        public static string PHRASE_FORGOT_YOUR_PASSWORD {
+            get {
+                return ResourceManager.GetString("PHRASE_FORGOT_YOUR_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string PHRASE_LOGIN {
+            get {
+                return ResourceManager.GetString("PHRASE_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum 6 characters.
+        /// </summary>
+        public static string PHRASE_PASSWORD_REQUIREMENTS {
+            get {
+                return ResourceManager.GetString("PHRASE_PASSWORD_REQUIREMENTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create your account!.
+        /// </summary>
+        public static string PHRASE_REGISTER_YOUR_ACCOUNT {
+            get {
+                return ResourceManager.GetString("PHRASE_REGISTER_YOUR_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small tasks, big results.
+        /// </summary>
+        public static string PHRASE_SMALL_TASKS_BIG_RESULTS {
+            get {
+                return ResourceManager.GetString("PHRASE_SMALL_TASKS_BIG_RESULTS", resourceCulture);
             }
         }
         
@@ -214,7 +178,7 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Take charge of your routine with ease—because you deserve more time for what you love!.
+        ///   Looks up a localized string similar to Control your routine with ease - because you deserve more time for what you love!.
         /// </summary>
         public static string SUBTITLE_REGISTER_ACCOUNT {
             get {
@@ -223,11 +187,65 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Small tasks, big results..
+        ///   Looks up a localized string similar to Email.
         /// </summary>
-        public static string SUBTITLE_SMALL_TASKS_BIG_RESULTS {
+        public static string TITLE_EMAIL {
             get {
-                return ResourceManager.GetString("SUBTITLE_SMALL_TASKS_BIG_RESULTS", resourceCulture);
+                return ResourceManager.GetString("TITLE_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string TITLE_NAME {
+            get {
+                return ResourceManager.GetString("TITLE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string TITLE_PASSWORD {
+            get {
+                return ResourceManager.GetString("TITLE_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create my account.
+        /// </summary>
+        public static string TITLE_REGISTER_MY_ACCOUNT {
+            get {
+                return ResourceManager.GetString("TITLE_REGISTER_MY_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string TITLE_WELCOME {
+            get {
+                return ResourceManager.GetString("TITLE_WELCOME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try it again.
+        /// </summary>
+        public static string TRY_IT_AGAIN {
+            get {
+                return ResourceManager.GetString("TRY_IT_AGAIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update profile.
+        /// </summary>
+        public static string UPDATE_PROFILE {
+            get {
+                return ResourceManager.GetString("UPDATE_PROFILE", resourceCulture);
             }
         }
     }

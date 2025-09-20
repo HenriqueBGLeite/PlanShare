@@ -9,9 +9,12 @@ using PlanShare.App.Navigation;
 using PlanShare.App.Resources.Styles.Handlers;
 using PlanShare.App.UseCases.Login.DoLogin;
 using PlanShare.App.UseCases.User.Register;
+using PlanShare.App.ViewModels.Pages.Dashboard;
+using PlanShare.App.ViewModels.Pages.Errors;
 using PlanShare.App.ViewModels.Pages.Login.DoLogin;
 using PlanShare.App.ViewModels.Pages.OnBoarding;
 using PlanShare.App.ViewModels.Pages.User.Register;
+using PlanShare.App.Views.Errors;
 using PlanShare.App.Views.Pages.Login.DoLogin;
 using PlanShare.App.Views.Pages.User.Register;
 using Refit;
@@ -55,6 +58,9 @@ public static class MauiProgram
     private static MauiAppBuilder AddPages(this MauiAppBuilder appBuilder)
     {
         appBuilder.Services.AddTransient<OnBoardingViewModel>();
+        appBuilder.Services.AddTransient<DashboardViewModel>();
+
+        appBuilder.Services.AddTransientWithShellRoute<ErrorsPage, ErrorsViewModel>(RoutePages.ERROR_PAGE);
 
         appBuilder.Services.AddTransientWithShellRoute<DoLoginPage, DoLoginViewModel>(RoutePages.LOGIN_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<RegisterUserAccountPage, RegisterUserAccountViewModel>(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
@@ -82,7 +88,7 @@ public static class MauiProgram
 
     private static MauiAppBuilder AddHttpClients(this MauiAppBuilder appBuilder)
     {
-        appBuilder.Services.AddSingleton<PlanShareHandler>();
+        appBuilder.Services.AddTransient<PlanShareHandler>();
 
         var apiUrl = appBuilder.Configuration.GetValue<string>("ApiUrl")!;
 

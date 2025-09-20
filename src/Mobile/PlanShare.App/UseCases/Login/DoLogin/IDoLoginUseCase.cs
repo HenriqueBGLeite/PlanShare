@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlanShare.App.Models.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace PlanShare.App.UseCases.Login.DoLogin
 {
     public interface IDoLoginUseCase
     {
-        Task Execute(Models.Login model);
+        Task<Result> Execute(Models.Login model);
     }
 }

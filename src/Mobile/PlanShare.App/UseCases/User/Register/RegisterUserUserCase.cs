@@ -3,6 +3,7 @@ using PlanShare.App.Data.Storage.Preferences.User;
 using PlanShare.App.Data.Storage.SecureStorage.Tokens;
 using PlanShare.App.Extensions;
 using PlanShare.App.Models;
+using PlanShare.App.Models.ValueObjects;
 using PlanShare.Communication.Requests;
 
 namespace PlanShare.App.UseCases.User.Register;
@@ -22,7 +23,7 @@ public class RegisterUserUserCase : IRegisterUserUserCase
         _tokenStorage = tokenStorage;
     }
 
-    public async Task Execute(UserRegisterAccount model)
+    public async Task<Result> Execute(UserRegisterAccount model)
     {
         var request = new RequestRegisterUserJson
         {
@@ -40,10 +41,12 @@ public class RegisterUserUserCase : IRegisterUserUserCase
 
             _userStorage.Save(user);
             await _tokenStorage.Save(tokens);
+
+            return Result.Success();
         }
-        else
-        {
-            var errorResponse = await response.Error.GetResponseError();
-        }
+
+        var errorResponse = await response.Error.GetResponseError();
+
+        return Result.Failure(errorResponse.Errors);
     }
 }

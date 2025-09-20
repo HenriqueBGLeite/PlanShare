@@ -5,4 +5,5 @@ public interface IUserStorage
     void Save(Models.ValueObjects.User user);
     Models.ValueObjects.User Get();
     void Clear();
+    bool IsLoggedIn();
 }

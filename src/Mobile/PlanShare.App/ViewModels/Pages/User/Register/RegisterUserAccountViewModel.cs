@@ -33,7 +33,19 @@ public partial class RegisterUserAccountViewModel : ViewModelBase
 
         await Task.Delay(4000);
 
-        await _registerUserUserCase.Execute(Model);
+        var result = await _registerUserUserCase.Execute(Model);
+
+        if (result.IsSuccess == false)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "errors", result.ErrorMessages! }
+            };
+
+            await _navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
+        }
+        else
+            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
 
         StatusPage = StatusPage.Default;
     }
