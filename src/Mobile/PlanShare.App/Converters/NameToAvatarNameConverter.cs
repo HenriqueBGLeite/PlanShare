@@ -11,6 +11,9 @@ public class NameToAvatarNameConverter : IValueConverter
 
         var name = value.ToString()!.Trim();
 
+        if (string.IsNullOrWhiteSpace(name))
+            return string.Empty;
+        
         //Henrique Batista
 
         var names = name.Split(' ');

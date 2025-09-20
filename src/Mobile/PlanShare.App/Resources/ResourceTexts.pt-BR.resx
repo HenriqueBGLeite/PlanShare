@@ -117,67 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-	<data name="DELETE_ACCOUNT" xml:space="preserve">
+  <data name="CHANGE_PASSWORD" xml:space="preserve">
+    <value>Alterar senha</value>
+  </data>
+  <data name="DELETE_ACCOUNT" xml:space="preserve">
     <value>Deletar minha conta</value>
   </data>
-	<data name="FOLLOWING_ERRORS_WERE_FOUND" xml:space="preserve">
+  <data name="FOLLOWING_ERRORS_WERE_FOUND" xml:space="preserve">
     <value>Os seguintes erros foram encontrados</value>
   </data>
-	<data name="LOGIN_WITH_EMAIL_PASSWORD" xml:space="preserve">
+  <data name="LOGIN_WITH_EMAIL_PASSWORD" xml:space="preserve">
     <value>Login com Email e Senha</value>
   </data>
-	<data name="PHRASE_ALREADY_HAS_ACCOUNT" xml:space="preserve">
+  <data name="PHRASE_ALREADY_HAS_ACCOUNT" xml:space="preserve">
     <value>Já possui uma conta?</value>
   </data>
-	<data name="PHRASE_CONTINUE_WITH_GOOGLE" xml:space="preserve">
+  <data name="PHRASE_CONTINUE_WITH_GOOGLE" xml:space="preserve">
     <value>Continuar com o Google</value>
   </data>
-	<data name="PHRASE_DONT_HAVE_ACCOUNT" xml:space="preserve">
+  <data name="PHRASE_DONT_HAVE_ACCOUNT" xml:space="preserve">
     <value>Não tem uma conta?</value>
   </data>
-	<data name="PHRASE_DO_LOGIN" xml:space="preserve">
+  <data name="PHRASE_DO_LOGIN" xml:space="preserve">
     <value>Faça login!</value>
   </data>
-	<data name="PHRASE_FORGOT_YOUR_PASSWORD" xml:space="preserve">
+  <data name="PHRASE_FORGOT_YOUR_PASSWORD" xml:space="preserve">
     <value>Esqueceu sua Senha?</value>
   </data>
-	<data name="PHRASE_LOGIN" xml:space="preserve">
+  <data name="PHRASE_LOGIN" xml:space="preserve">
     <value>Login</value>
   </data>
-	<data name="PHRASE_PASSWORD_REQUIREMENTS" xml:space="preserve">
+  <data name="PHRASE_PASSWORD_REQUIREMENTS" xml:space="preserve">
     <value>Mínimo de 6 caracteres</value>
   </data>
-	<data name="PHRASE_REGISTER_YOUR_ACCOUNT" xml:space="preserve">
+  <data name="PHRASE_REGISTER_YOUR_ACCOUNT" xml:space="preserve">
     <value>Crie a sua conta!</value>
   </data>
-	<data name="PHRASE_SMALL_TASKS_BIG_RESULTS" xml:space="preserve">
+  <data name="PHRASE_SMALL_TASKS_BIG_RESULTS" xml:space="preserve">
     <value>Tarefas pequenas, grandes resultados</value>
   </data>
-	<data name="SERVER_COMMUNICATION_ERROR" xml:space="preserve">
+  <data name="SERVER_COMMUNICATION_ERROR" xml:space="preserve">
     <value>Ocorreu um erro na comunicação com o servidor. Por favor, tente novamente mais tarde.</value>
   </data>
-	<data name="SUBTITLE_REGISTER_ACCOUNT" xml:space="preserve">
+  <data name="SUBTITLE_REGISTER_ACCOUNT" xml:space="preserve">
     <value>Comande sua rotina com facilidade—porque você merece mais tempo para o que ama!</value>
   </data>
-	<data name="TITLE_EMAIL" xml:space="preserve">
+  <data name="TITLE_EMAIL" xml:space="preserve">
     <value>Email</value>
   </data>
-	<data name="TITLE_NAME" xml:space="preserve">
+  <data name="TITLE_NAME" xml:space="preserve">
     <value>Nome</value>
   </data>
-	<data name="TITLE_PASSWORD" xml:space="preserve">
+  <data name="TITLE_PASSWORD" xml:space="preserve">
     <value>Senha</value>
   </data>
-	<data name="TITLE_REGISTER_MY_ACCOUNT" xml:space="preserve">
+  <data name="TITLE_REGISTER_MY_ACCOUNT" xml:space="preserve">
     <value>Criar minha conta</value>
   </data>
-	<data name="TITLE_WELCOME" xml:space="preserve">
+  <data name="TITLE_WELCOME" xml:space="preserve">
     <value>Bem vindo(a)</value>
   </data>
-	<data name="TRY_IT_AGAIN" xml:space="preserve">
+  <data name="TRY_IT_AGAIN" xml:space="preserve">
     <value>Tentar novamente</value>
   </data>
-	<data name="UPDATE_PROFILE" xml:space="preserve">
+  <data name="UPDATE_PROFILE" xml:space="preserve">
     <value>Atualizar perfil</value>
   </data>
 </root>

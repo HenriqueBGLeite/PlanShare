@@ -33,7 +33,7 @@
             <inputsComponent:EntryAndLabelComponent
                 Title="{Static resourceFile:ResourceTexts.TITLE_EMAIL}"
                 Keyboard="Email"
-                Placeholder="bruce@wayne.com"
+                Placeholder="bruce@waynetech.com"
                 TextValue="{Binding Model.Email}" />
 
             <inputsComponent:EntryAndLabelPasswordComponent Title="{Static resourceFile:ResourceTexts.TITLE_PASSWORD}" TextValue="{Binding Model.Password}" />

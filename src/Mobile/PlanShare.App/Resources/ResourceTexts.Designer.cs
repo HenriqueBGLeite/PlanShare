@@ -61,6 +61,15 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        public static string CHANGE_PASSWORD {
+            get {
+                return ResourceManager.GetString("CHANGE_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete my account.
         /// </summary>
         public static string DELETE_ACCOUNT {
