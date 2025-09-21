@@ -8,18 +8,16 @@ namespace PlanShare.App.ViewModels.Pages.User.Register;
 
 public partial class RegisterUserAccountViewModel : ViewModelBase
 {
-    private readonly INavigationService _navigationService;
     private readonly IRegisterUserUserCase _registerUserUserCase;
 
     [ObservableProperty]
-    public UserRegisterAccount model;
+    public partial UserRegisterAccount Model { get; set; }
 
     public RegisterUserAccountViewModel(INavigationService navigationService, 
-        IRegisterUserUserCase registerUserUserCase)
+        IRegisterUserUserCase registerUserUserCase) : base(navigationService)
     {
         Model = new UserRegisterAccount();
 
-        _navigationService = navigationService;
         _registerUserUserCase = registerUserUserCase;
     }
 
@@ -36,14 +34,7 @@ public partial class RegisterUserAccountViewModel : ViewModelBase
         if (result.IsSuccess)
             await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
         else
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "errors", result.ErrorMessages! }
-            };
-
-            await _navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }
+            await GoToPageWithErrors(result);
 
         StatusPage = StatusPage.Default;
     }

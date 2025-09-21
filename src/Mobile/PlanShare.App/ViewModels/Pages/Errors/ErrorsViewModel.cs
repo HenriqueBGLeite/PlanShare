@@ -10,7 +10,7 @@ public partial class ErrorsViewModel : ObservableObject, IQueryAttributable
     private readonly INavigationService _navigationService;
 
     [ObservableProperty]
-    public ObservableCollection<string> errorsList = [];
+    public partial ObservableCollection<string> ErrorsList { get; set; } = [];
 
     public ErrorsViewModel(INavigationService navigationService)
     {

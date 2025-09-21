@@ -5,6 +5,6 @@ namespace PlanShare.App.Models;
 public partial class User : ObservableObject
 {
     [ObservableProperty]
-    public string name;
+    public partial string Name { get; set; }
     public string Email { get; set; } = string.Empty;
 }

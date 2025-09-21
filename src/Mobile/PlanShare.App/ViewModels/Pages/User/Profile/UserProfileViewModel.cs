@@ -4,22 +4,24 @@ using PlanShare.App.Data.Storage.Preferences.User;
 using PlanShare.App.Models;
 using PlanShare.App.Navigation;
 using PlanShare.App.UseCases.User.Profile;
+using PlanShare.App.UseCases.User.Update;
 
 namespace PlanShare.App.ViewModels.Pages.User.Profile;
 
 public partial class UserProfileViewModel : ViewModelBase
 {
-    private readonly INavigationService _navigationService;
     private readonly IGetUserProfileUseCase _getUserProfileUseCase;
+    private readonly IUpdateUserUseCase _updateUserUseCase;
 
     [ObservableProperty]
-    public Models.User model;
+    public partial Models.User Model {  get; set; }
 
     public UserProfileViewModel(INavigationService navigationService,
-        IGetUserProfileUseCase getUserProfileUseCase)
+        IGetUserProfileUseCase getUserProfileUseCase,
+        IUpdateUserUseCase updateUserUseCase) : base(navigationService)
     {
-        _navigationService = navigationService;
         _getUserProfileUseCase = getUserProfileUseCase;
+        _updateUserUseCase = updateUserUseCase;
     }
 
     [RelayCommand]
@@ -32,14 +34,24 @@ public partial class UserProfileViewModel : ViewModelBase
         if (result.IsSuccess)
             Model = result.Response!;
         else
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "errors", result.ErrorMessages! }
-            };
+            await GoToPageWithErrors(result);
 
-            await _navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }
+        StatusPage = Models.StatusPage.Default;
+    }
+
+    [RelayCommand]
+    public async Task UpdateProfile()
+    {
+        StatusPage = Models.StatusPage.Sending;
+
+        var result = await _updateUserUseCase.Execute(Model);
+
+        if (result.IsSuccess)
+        {
+
+        }            
+        else
+            await GoToPageWithErrors(result);
 
         StatusPage = Models.StatusPage.Default;
     }

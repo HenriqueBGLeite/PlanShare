@@ -3,6 +3,7 @@
     x:Class="PlanShare.App.Views.Pages.User.Profile.UserProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animationComponent="clr-namespace:PlanShare.App.Views.Components.StatusPage"
     xmlns:converters="clr-namespace:PlanShare.App.Converters"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
     xmlns:inputsComponent="clr-namespace:PlanShare.App.Views.Components.Inputs"
@@ -83,7 +84,10 @@
                 ColumnDefinitions="*,*"
                 ColumnSpacing="20">
                 <Button Style="{StaticResource SecondaryButtonStyle}" Text="{Static resourceFile:ResourceTexts.CHANGE_PASSWORD}" />
-                <Button Grid.Column="1" Text="{Static resourceFile:ResourceTexts.UPDATE_PROFILE}" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding UpdateProfileCommand}"
+                    Text="{Static resourceFile:ResourceTexts.UPDATE_PROFILE}" />
             </Grid>
 
             <Button Style="{StaticResource DangerButtonStyle}" Text="{Static resourceFile:ResourceTexts.DELETE_ACCOUNT}" />
@@ -148,5 +152,16 @@
                 Style="{StaticResource DangerButtonStyle}"
                 Text="{Static resourceFile:ResourceTexts.DELETE_ACCOUNT}" />
         </VerticalStackLayout>
+
+        <animationComponent:AnimationSendInformationComponent IsVisible="False">
+            <animationComponent:AnimationSendInformationComponent.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="animationComponent:AnimationSendInformationComponent"
+                    Value="{Static models:StatusPage.Sending}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </animationComponent:AnimationSendInformationComponent.Triggers>
+        </animationComponent:AnimationSendInformationComponent>
     </Grid>
 </ContentPage>

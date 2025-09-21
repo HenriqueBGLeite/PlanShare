@@ -7,17 +7,13 @@ namespace PlanShare.App.ViewModels.Pages.Dashboard;
 
 public partial class DashboardViewModel : ViewModelBase
 {
-    private readonly INavigationService _navigationService;
-
     [ObservableProperty]
-    public string userName;
+    public partial string UserName { get; set; }
 
     public DashboardViewModel(IUserStorage userStorage, 
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         UserName = userStorage.Get().Name;
-
-        _navigationService = navigationService;
     }
 
     [RelayCommand]

@@ -9,17 +9,15 @@ namespace PlanShare.App.ViewModels.Pages.Login.DoLogin;
 public partial class DoLoginViewModel : ViewModelBase
 {
     private readonly IDoLoginUseCase _loginUseCase;
-    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
-    public Models.Login model;
+    public partial Models.Login Model {  get; set; }
 
     public DoLoginViewModel(IDoLoginUseCase loginUseCase, 
-        INavigationService navigationService)
+        INavigationService navigationService) : base(navigationService)
     {
         Model = new Models.Login();
         _loginUseCase = loginUseCase;
-        _navigationService = navigationService;
     }
 
     [RelayCommand]
@@ -31,16 +29,9 @@ public partial class DoLoginViewModel : ViewModelBase
 
         if (result.IsSuccess)
             await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
-        else 
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "errors", result.ErrorMessages! }
-            };
-
-            await _navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }            
-            
+        else
+            await GoToPageWithErrors(result);
+                
         StatusPage = StatusPage.Default;
     }
 }
