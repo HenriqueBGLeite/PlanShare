@@ -11,12 +11,11 @@ public partial class DoLoginViewModel : ViewModelBase
     private readonly IDoLoginUseCase _loginUseCase;
 
     [ObservableProperty]
-    public partial Models.Login Model {  get; set; }
+    public partial Models.Login Model { get; set; } = new();
 
     public DoLoginViewModel(IDoLoginUseCase loginUseCase, 
         INavigationService navigationService) : base(navigationService)
     {
-        Model = new Models.Login();
         _loginUseCase = loginUseCase;
     }
 

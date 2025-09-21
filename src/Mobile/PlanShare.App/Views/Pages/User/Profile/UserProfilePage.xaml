@@ -83,7 +83,10 @@
                 Margin="0,70,0,25"
                 ColumnDefinitions="*,*"
                 ColumnSpacing="20">
-                <Button Style="{StaticResource SecondaryButtonStyle}" Text="{Static resourceFile:ResourceTexts.CHANGE_PASSWORD}" />
+                <Button
+                    Command="{Binding ChangePasswordCommand}"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Text="{Static resourceFile:ResourceTexts.CHANGE_PASSWORD}" />
                 <Button
                     Grid.Column="1"
                     Command="{Binding UpdateProfileCommand}"

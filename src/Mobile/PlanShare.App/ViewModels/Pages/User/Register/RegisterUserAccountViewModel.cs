@@ -11,13 +11,11 @@ public partial class RegisterUserAccountViewModel : ViewModelBase
     private readonly IRegisterUserUserCase _registerUserUserCase;
 
     [ObservableProperty]
-    public partial UserRegisterAccount Model { get; set; }
+    public partial UserRegisterAccount Model { get; set; } = new();
 
     public RegisterUserAccountViewModel(INavigationService navigationService, 
         IRegisterUserUserCase registerUserUserCase) : base(navigationService)
     {
-        Model = new UserRegisterAccount();
-
         _registerUserUserCase = registerUserUserCase;
     }
 

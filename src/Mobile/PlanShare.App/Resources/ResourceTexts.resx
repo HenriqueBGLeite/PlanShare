@@ -120,6 +120,12 @@
   <data name="CHANGE_PASSWORD" xml:space="preserve">
     <value>Change password</value>
   </data>
+  <data name="TITLE_CURRENT_PASSWORD" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="TITLE_NEW_PASSWORD" xml:space="preserve">
+    <value>New password</value>
+  </data>
   <data name="DELETE_ACCOUNT" xml:space="preserve">
     <value>Delete my account</value>
   </data>

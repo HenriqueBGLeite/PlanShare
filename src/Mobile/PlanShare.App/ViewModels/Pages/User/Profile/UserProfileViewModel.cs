@@ -14,7 +14,7 @@ public partial class UserProfileViewModel : ViewModelBase
     private readonly IUpdateUserUseCase _updateUserUseCase;
 
     [ObservableProperty]
-    public partial Models.User Model {  get; set; }
+    public partial Models.User Model { get; set; } = new();
 
     public UserProfileViewModel(INavigationService navigationService,
         IGetUserProfileUseCase getUserProfileUseCase,
@@ -55,4 +55,7 @@ public partial class UserProfileViewModel : ViewModelBase
 
         StatusPage = Models.StatusPage.Default;
     }
+
+    [RelayCommand]
+    public async Task ChangePassword() => await _navigationService.GoToAsync(RoutePages.USER_CHANGE_PASSWORD_PAGE);
 }
