@@ -8,4 +8,7 @@ public interface IUserApi
 {
     [Post("/users")]
     Task<ApiResponse<ResponseRegisteredUserJson>> Register([Body] RequestRegisterUserJson request);
+
+    [Get("/users")]
+    Task<ApiResponse<ResponseUserProfileJson>> GetProfile();
 }

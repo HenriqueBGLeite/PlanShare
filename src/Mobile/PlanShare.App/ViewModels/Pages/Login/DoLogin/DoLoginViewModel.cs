@@ -27,11 +27,11 @@ public partial class DoLoginViewModel : ViewModelBase
     {
         StatusPage = StatusPage.Sending;
 
-        await Task.Delay(4000);
-
         var result = await _loginUseCase.Execute(Model);
 
-        if (result.IsSuccess == false)
+        if (result.IsSuccess)
+            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+        else 
         {
             var parameters = new Dictionary<string, object>
             {
@@ -39,9 +39,7 @@ public partial class DoLoginViewModel : ViewModelBase
             };
 
             await _navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }
-        else
-            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+        }            
             
         StatusPage = StatusPage.Default;
     }

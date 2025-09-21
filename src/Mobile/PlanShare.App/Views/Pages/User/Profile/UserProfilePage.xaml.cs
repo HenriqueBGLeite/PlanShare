@@ -8,5 +8,5 @@ public partial class UserProfilePage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = model;
-	}
+    }
 }
