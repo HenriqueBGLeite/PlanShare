@@ -79,6 +79,15 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete profile picture.
+        /// </summary>
+        public static string DELETE_PROFILE_PICTURE {
+            get {
+                return ResourceManager.GetString("DELETE_PROFILE_PICTURE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following errors were found.
         /// </summary>
         public static string FOLLOWING_ERRORS_WERE_FOUND {
@@ -93,6 +102,15 @@ namespace PlanShare.App.Resources {
         public static string LOGIN_WITH_EMAIL_PASSWORD {
             get {
                 return ResourceManager.GetString("LOGIN_WITH_EMAIL_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been changed successfully..
+        /// </summary>
+        public static string PASSWORD_SUCCESSFULLY_CHANGED {
+            get {
+                return ResourceManager.GetString("PASSWORD_SUCCESSFULLY_CHANGED", resourceCulture);
             }
         }
         
@@ -178,6 +196,15 @@ namespace PlanShare.App.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your profile information has been updated successfully..
+        /// </summary>
+        public static string PROFILE_INFORMATION_SUCCESSFULLY_UPDATED {
+            get {
+                return ResourceManager.GetString("PROFILE_INFORMATION_SUCCESSFULLY_UPDATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while communicating with the server. Please try again later..
         /// </summary>
         public static string SERVER_COMMUNICATION_ERROR {
@@ -192,6 +219,33 @@ namespace PlanShare.App.Resources {
         public static string SUBTITLE_REGISTER_ACCOUNT {
             get {
                 return ResourceManager.GetString("SUBTITLE_REGISTER_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take a photo and upload it.
+        /// </summary>
+        public static string TAKE_PHOTO_UPLOAD {
+            get {
+                return ResourceManager.GetString("TAKE_PHOTO_UPLOAD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string TITLE_CANCEL {
+            get {
+                return ResourceManager.GetString("TITLE_CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string TITLE_CLOSE {
+            get {
+                return ResourceManager.GetString("TITLE_CLOSE", resourceCulture);
             }
         }
         
@@ -273,6 +327,15 @@ namespace PlanShare.App.Resources {
         public static string UPDATE_PROFILE {
             get {
                 return ResourceManager.GetString("UPDATE_PROFILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload a photo.
+        /// </summary>
+        public static string UPLOAD_PHOTO {
+            get {
+                return ResourceManager.GetString("UPLOAD_PHOTO", resourceCulture);
             }
         }
     }

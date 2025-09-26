@@ -189,4 +189,25 @@
   <data name="UPDATE_PROFILE" xml:space="preserve">
     <value>Atualizar perfil</value>
   </data>
+  <data name="TITLE_CLOSE" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="PROFILE_INFORMATION_SUCCESSFULLY_UPDATED" xml:space="preserve">
+    <value>As informações do seu perfil foram atualizadas com sucesso.</value>
+  </data>
+  <data name="PASSWORD_SUCCESSFULLY_CHANGED" xml:space="preserve">
+    <value>Sua senha foi alterada com sucesso.</value>
+  </data>
+  <data name="UPLOAD_PHOTO" xml:space="preserve">
+    <value>Fazer upload de uma foto</value>
+  </data>
+  <data name="TITLE_CANCEL" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="TAKE_PHOTO_UPLOAD" xml:space="preserve">
+    <value>Tirar foto e fazer upload</value>
+  </data>
+  <data name="DELETE_PROFILE_PICTURE" xml:space="preserve">
+    <value>Deletar foto de perfil</value>
+  </data>
 </root>

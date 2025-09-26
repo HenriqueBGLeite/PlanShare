@@ -189,4 +189,25 @@
   <data name="UPDATE_PROFILE" xml:space="preserve">
     <value>Update profile</value>
   </data>
+  <data name="TITLE_CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="PROFILE_INFORMATION_SUCCESSFULLY_UPDATED" xml:space="preserve">
+    <value>Your profile information has been updated successfully.</value>
+  </data>
+  <data name="PASSWORD_SUCCESSFULLY_CHANGED" xml:space="preserve">
+    <value>Your password has been changed successfully.</value>
+  </data>
+  <data name="UPLOAD_PHOTO" xml:space="preserve">
+    <value>Upload a photo</value>
+  </data>
+  <data name="TITLE_CANCEL" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="TAKE_PHOTO_UPLOAD" xml:space="preserve">
+    <value>Take a photo and upload it</value>
+  </data>
+  <data name="DELETE_PROFILE_PICTURE" xml:space="preserve">
+    <value>Delete profile picture</value>
+  </data>
 </root>

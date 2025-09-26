@@ -19,11 +19,13 @@ using PlanShare.App.ViewModels.Pages.OnBoarding;
 using PlanShare.App.ViewModels.Pages.User.ChangePassword;
 using PlanShare.App.ViewModels.Pages.User.Profile;
 using PlanShare.App.ViewModels.Pages.User.Register;
+using PlanShare.App.ViewModels.Popups.Files;
 using PlanShare.App.Views.Errors;
 using PlanShare.App.Views.Pages.Login.DoLogin;
 using PlanShare.App.Views.Pages.User.ChangePassword;
 using PlanShare.App.Views.Pages.User.Profile;
 using PlanShare.App.Views.Pages.User.Register;
+using PlanShare.App.Views.Popups.Files;
 using Refit;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Reflection;
@@ -40,11 +42,13 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .UseSkiaSharp()
             .AddPages()
+            .AddPopups()
             .AddNavigationService()
             .AddAppSettings()
             .AddHttpClients()
             .AddUserCases()
             .AddStorage()
+            .AddDeviceInfo()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Raleway-Regular.ttf", FontFamily.MAIN_FONT_REGULAR);
@@ -73,6 +77,13 @@ public static class MauiProgram
         appBuilder.Services.AddTransientWithShellRoute<RegisterUserAccountPage, RegisterUserAccountViewModel>(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<UserProfilePage, UserProfileViewModel>(RoutePages.USER_UPDATE_PROFILE_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<ChangeUserPasswordPage, ChangeUserPasswordViewModel>(RoutePages.USER_CHANGE_PASSWORD_PAGE);
+
+        return appBuilder;
+    }
+
+    private static MauiAppBuilder AddPopups(this MauiAppBuilder appBuilder)
+    {
+        appBuilder.Services.AddTransientPopup<OptionsForProfilePhotoPopup, OptionsForProfilePhotoViewModel>();
 
         return appBuilder;
     }
@@ -132,6 +143,14 @@ public static class MauiProgram
             appBuilder.Services.AddSingleton<ITokensStorage, TokensStorageForVirtualDevice>();
         else
             appBuilder.Services.AddSingleton<ITokensStorage, TokensStorage>();
+
+        return appBuilder;
+    }
+
+    private static MauiAppBuilder AddDeviceInfo(this MauiAppBuilder appBuilder)
+    {
+        appBuilder.Services.AddSingleton(DeviceDisplay.Current);
+        appBuilder.Services.AddSingleton(MediaPicker.Default);
 
         return appBuilder;
     }

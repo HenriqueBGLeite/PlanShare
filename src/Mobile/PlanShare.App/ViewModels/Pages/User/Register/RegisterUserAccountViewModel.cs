@@ -30,7 +30,7 @@ public partial class RegisterUserAccountViewModel : ViewModelBase
         var result = await _registerUserUserCase.Execute(Model);
 
         if (result.IsSuccess)
-            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+            await _navigationService.GoToDashboardPage();
         else
             await GoToPageWithErrors(result);
 
