@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PlanShare.Application.Services.Authentication;
-using PlanShare.Application.Services.AutoMapper;
+using PlanShare.Application.Services.Mappings;
 using PlanShare.Application.UseCases.Dashboard;
 using PlanShare.Application.UseCases.Login.DoLogin;
 using PlanShare.Application.UseCases.User.ChangePassword;
+using PlanShare.Application.UseCases.User.Photo;
 using PlanShare.Application.UseCases.User.Profile;
 using PlanShare.Application.UseCases.User.Register;
 using PlanShare.Application.UseCases.User.Update;
@@ -18,14 +19,14 @@ public static class DependencyInjectionExtension
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        AddAutoMapper(services);
+        AddMapperConfigurations(services);
         AddUseCases(services);
         AddTokenService(services);
     }
 
-    private static void AddAutoMapper(IServiceCollection services)
+    private static void AddMapperConfigurations(IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(AutoMapping));
+        MapConfigurations.Configure();
     }
 
     private static void AddUseCases(IServiceCollection services)
@@ -34,6 +35,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        services.AddScoped<IChangeUserPhotoUseCase, ChangeUserPhotoUseCase>();
 
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
 

@@ -5,6 +5,7 @@ using Microsoft.Maui.Controls.Shapes;
 using PlanShare.App.Models.Enums;
 using PlanShare.App.Navigation;
 using PlanShare.App.Resources;
+using PlanShare.App.UseCases.User.Photo;
 using PlanShare.App.UseCases.User.Profile;
 using PlanShare.App.UseCases.User.Update;
 using PlanShare.App.ViewModels.Popups.Files;
@@ -20,7 +21,8 @@ public partial class UserProfileViewModel : ViewModelBase
     private readonly IGetUserProfileUseCase _getUserProfileUseCase;
     private readonly IUpdateUserUseCase _updateUserUseCase;
     private readonly IMediaPicker _mediaPicker;
-    
+    private readonly IChangeUserPhotoUseCase _changeUserPhotoUseCase;
+
 
     [ObservableProperty]
     public partial Models.User Model { get; set; } = new();
@@ -28,26 +30,28 @@ public partial class UserProfileViewModel : ViewModelBase
     public UserProfileViewModel(INavigationService navigationService,
         IGetUserProfileUseCase getUserProfileUseCase,
         IUpdateUserUseCase updateUserUseCase,
-        IMediaPicker mediaPicker) : base(navigationService)
+        IMediaPicker mediaPicker,
+        IChangeUserPhotoUseCase changeUserPhotoUseCase) : base(navigationService)
     {
         _getUserProfileUseCase = getUserProfileUseCase;
         _updateUserUseCase = updateUserUseCase;
         _mediaPicker = mediaPicker;
+        _changeUserPhotoUseCase = changeUserPhotoUseCase;
     }
 
     [RelayCommand]
     public async Task Initialize()
     {
-        //StatusPage = Models.StatusPage.Loading;
+        StatusPage = Models.StatusPage.Loading;
 
-        //var result = await _getUserProfileUseCase.Execute();
+        var result = await _getUserProfileUseCase.Execute();
 
-        //if (result.IsSuccess)
-        //    Model = result.Response!;
-        //else
-        //    await GoToPageWithErrors(result);
+        if (result.IsSuccess)
+            Model = result.Response!;
+        else
+            await GoToPageWithErrors(result);
 
-        //StatusPage = Models.StatusPage.Default;
+        StatusPage = Models.StatusPage.Default;
     }
 
     [RelayCommand]
@@ -78,13 +82,13 @@ public partial class UserProfileViewModel : ViewModelBase
             case ChooseFileOption.TakePicture:
                 {
                     var photo = await _mediaPicker.CapturePhotoAsync();
-                    UpdatePhotoProcess(photo);
+                    await UpdateProfilePhoto(photo);
                 }
                 break;
             case ChooseFileOption.UploadFromGallery:
                 {
                     var photo = await _mediaPicker.PickVideoAsync();
-                    UpdatePhotoProcess(photo);
+                    await UpdateProfilePhoto(photo);
                 }
                 break;
             case ChooseFileOption.DeleteCurrentPhoto:
@@ -95,9 +99,22 @@ public partial class UserProfileViewModel : ViewModelBase
         }
     }
 
-    private void UpdatePhotoProcess(FileResult? photo)
+    private async Task UpdateProfilePhoto(FileResult? photo)
     {
         if (photo is not null)
+        {
+            StatusPage = Models.StatusPage.Sending;
+
+            var result = await _changeUserPhotoUseCase.Execute(photo);
+
+            if (result.IsSuccess)
+                await _navigationService.ShowSuccessFeedback(ResourceTexts.PROFILE_PHOTO_SUCCESSFULLY_UPDATED);
+            else
+                await GoToPageWithErrors(result);
+
+            StatusPage = Models.StatusPage.Default;
+
             PhotoPath = photo.FullPath;
+        }
     }
 }

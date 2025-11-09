@@ -210,4 +210,7 @@
   <data name="DELETE_PROFILE_PICTURE" xml:space="preserve">
     <value>Deletar foto de perfil</value>
   </data>
+  <data name="PROFILE_PHOTO_SUCCESSFULLY_UPDATED" xml:space="preserve">
+    <value>Sua foto de perfil foi atualizada com sucesso.</value>
+  </data>
 </root>
