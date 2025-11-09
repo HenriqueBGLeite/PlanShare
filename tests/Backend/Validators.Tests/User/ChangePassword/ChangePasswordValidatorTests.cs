@@ -22,7 +22,7 @@ public class ChangePasswordValidatorTests
     }
 
     [Fact]
-    public void Error_Password_Empty()
+    public void Error_NewPassword_Empty()
     {
         // Arrange
         var validator = new ChangePasswordValidator();
@@ -47,7 +47,7 @@ public class ChangePasswordValidatorTests
     [InlineData(3)]
     [InlineData(4)]
     [InlineData(5)]
-    public void Error_Password_Invalid(int passwordLength)
+    public void Error_NewPassword_Invalid(int passwordLength)
     {
         // Arrange
         var validator = new ChangePasswordValidator();
