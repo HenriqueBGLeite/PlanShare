@@ -11,7 +11,7 @@ public class GetUserProfileUseCaseTests
     public async Task Success()
     {
         // Arrange
-        var user = UserBuilder.Build();
+        (var user, _) = UserBuilder.Build();
         var useCase = CreateUseCase(user);
 
         // Action
