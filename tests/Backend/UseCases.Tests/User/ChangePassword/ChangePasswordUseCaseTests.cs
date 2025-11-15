@@ -8,7 +8,6 @@ using PlanShare.Communication.Requests;
 using PlanShare.Exceptions;
 using PlanShare.Exceptions.ExceptionsBase;
 using Shouldly;
-using System.Threading.Tasks;
 
 namespace UseCases.Tests.User.ChangePassword;
 
