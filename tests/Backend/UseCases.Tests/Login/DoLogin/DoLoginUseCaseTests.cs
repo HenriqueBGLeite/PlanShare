@@ -5,7 +5,6 @@ using CommonTestUtilities.Requests;
 using CommonTestUtilities.Security.Cryptography;
 using PlanShare.Application.UseCases.Login.DoLogin;
 using PlanShare.Communication.Requests;
-using PlanShare.Domain.Extensions;
 using PlanShare.Exceptions;
 using PlanShare.Exceptions.ExceptionsBase;
 using Shouldly;

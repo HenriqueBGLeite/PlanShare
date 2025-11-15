@@ -1,7 +1,9 @@
 ﻿using FluentMigrator.Runner;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PlanShare.Domain.Extensions;
 using PlanShare.Domain.Repositories;
 using PlanShare.Domain.Repositories.Association;
 using PlanShare.Domain.Repositories.User;
@@ -21,14 +23,18 @@ using System.Reflection;
 namespace PlanShare.Infrastructure;
 public static class DependencyInjectionExtension
 {
-    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
         AddRepositories(services);
         AddLoggedUser(services);
         AddTokenHandlers(services, configuration);
         AddPasswordEncripter(services);
-        AddDbContext(services, configuration);
-        AddFluentMigrator(services, configuration);
+
+        if (environment.IsTests().IsFalse())
+        {
+            AddDbContext(services, configuration);
+            AddFluentMigrator(services, configuration);
+        }
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
