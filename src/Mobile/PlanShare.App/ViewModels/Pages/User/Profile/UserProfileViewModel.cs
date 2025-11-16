@@ -87,7 +87,7 @@ public partial class UserProfileViewModel : ViewModelBase
                 break;
             case ChooseFileOption.UploadFromGallery:
                 {
-                    var photo = await _mediaPicker.PickVideoAsync();
+                    var photo = await _mediaPicker.PickPhotoAsync();
                     await UpdateProfilePhoto(photo);
                 }
                 break;

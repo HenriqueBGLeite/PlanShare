@@ -15,8 +15,4 @@
     <ProjectReference Include="..\..\..\src\Mobile\PlanShare.App\PlanShare.App.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\User\Photo\" />
-  </ItemGroup>
-
 </Project>
