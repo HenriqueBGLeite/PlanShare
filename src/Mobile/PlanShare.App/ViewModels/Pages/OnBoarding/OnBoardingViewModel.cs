@@ -19,5 +19,5 @@ public partial class OnBoardingViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public async Task RegisterUserAccount() => await Shell.Current.GoToAsync(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
+    public async Task RegisterUserAccount() => await _navigationService.GoToAsync(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
 }
