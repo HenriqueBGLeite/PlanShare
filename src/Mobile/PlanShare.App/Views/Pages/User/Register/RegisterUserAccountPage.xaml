@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PlanShare.App.Views.Pages.User.Register.RegisterUserAccountPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:component="clr-namespace:PlanShare.App.Views.Components.Inputs"
+    xmlns:fontFamily="clr-namespace:PlanShare.App.Constants">
+    <VerticalStackLayout Spacing="30">
+        <Label Style="{StaticResource PageTitle}" Text="Criar minha Conta" />
+
+        <Label Margin="0,-10,0,10" Text="Comande sua rotina com facilidade—porque você merece mais tempo para o que ama!" />
+
+        <component:EntryAndLabelComponent Title="Nome" Placeholder="Bruce Wayne" />
+
+        <component:EntryAndLabelComponent
+            Title="Email"
+            Keyboard="Email"
+            Placeholder="bruce@waynetech.com" />
+
+        <component:EntryAndLabelPasswordComponent Title="Senha" />
+
+        <Button
+            BackgroundColor="#0065F2"
+            CornerRadius="20"
+            Margin="0,40"
+            HeightRequest="60"
+            Text="Criar minha conta" />
+
+        <VerticalStackLayout Padding="0,8,0,0" HeightRequest="40">
+            <Label FontSize="18" HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Já possui uma conta?" />
+                        <Span Text=" " />
+                        <Span
+                            FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
+                            Text="Faça login!"
+                            TextColor="#0065F2" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

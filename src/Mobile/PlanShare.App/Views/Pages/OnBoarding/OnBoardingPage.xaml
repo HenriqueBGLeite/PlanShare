@@ -3,22 +3,25 @@
     x:Class="PlanShare.App.Views.Pages.OnBoarding.OnBoardingPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.OnBoarding"
+    x:DataType="viewModel:OnBoardingViewModel"
     Shell.NavBarIsVisible="False">
-    <VerticalStackLayout Padding="20,40">
+    <VerticalStackLayout>
         <Image Source="hero_image.png" />
 
         <Label
             Margin="0,30,0,40"
-            FontFamily="RalewayBlack"
+            FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
             FontSize="18"
             HorizontalOptions="Center"
-            Text="Tarefas pequenas, grandes resultados." />
+            Text="Tarefas pequenas, grandes resultados."
+            TextColor="Black" />
 
         <Button
             BackgroundColor="#F6F6FB"
+            Command="{Binding LoginWithGoogleCommand}"
             CornerRadius="20"
-            FontFamily="RalewayBlack"
-            FontSize="18"
             HeightRequest="60"
             ImageSource="google_logo.png"
             Text="Continuar com Google"
@@ -26,25 +29,27 @@
 
         <Button
             Margin="0,20,0,40"
-            BackgroundColor="Black"
+            Command="{Binding LoginWithEmailAndPasswordCommand}"
             CornerRadius="20"
-            FontFamily="RalewayBlack"
-            FontSize="18"
             HeightRequest="60"
-            Text="Login com Email e senha"
-            TextColor="White" />
+            Text="Login com Email e senha" />
 
-        <Label FontSize="18" HorizontalOptions="Center">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span FontFamily="WorkSansRegular" Text="Não tem uma conta?" />
-                    <Span Text=" " />
-                    <Span
-                        FontFamily="WorkSansBlack"
-                        Text="Crie a sua conta!"
-                        TextColor="#0065F2" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+        <VerticalStackLayout Padding="0,8,0,0" HeightRequest="40">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding RegisterUserAccountCommand}" />
+            </VerticalStackLayout.GestureRecognizers>
+            <Label FontSize="18" HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Não tem uma conta?" />
+                        <Span Text=" " />
+                        <Span
+                            FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
+                            Text="Crie a sua conta!"
+                            TextColor="#0065F2" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
