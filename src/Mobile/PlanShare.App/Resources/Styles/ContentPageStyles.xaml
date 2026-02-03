@@ -3,6 +3,7 @@
 
     <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
         <Setter Property="Padding" Value="20,40" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PAGE_BACKGROUND_COLOR_LIGHT}, Dark={StaticResource PAGE_BACKGROUND_COLOR_DARK}}" />
     </Style>
 
 </ResourceDictionary>

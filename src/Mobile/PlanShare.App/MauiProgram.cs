@@ -1,4 +1,5 @@
-﻿using PlanShare.App.Constants;
+﻿using CommunityToolkit.Maui;
+using PlanShare.App.Constants;
 using PlanShare.App.Navigation;
 using PlanShare.App.Views.Pages.Login.DoLogin;
 using PlanShare.App.Views.Pages.User.Register;
@@ -12,12 +13,13 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .AddPages()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Raleway-Black.ttf", FontFamily.MAIN_FONT_BLACK);
                 fonts.AddFont("Raleway-Regular.ttf", FontFamily.MAIN_FONT_REGULAR);
-                fonts.AddFont("Raleway-Thin.ttf", FontFamily.MAIN_FONT_THIN);
+                fonts.AddFont("Raleway-Light.ttf", FontFamily.MAIN_FONT_LIGHT);
                 fonts.AddFont("WorkSans-Black.ttf", FontFamily.SECONDARY_FONT_BLACK);
                 fonts.AddFont("WorkSans-Regular.ttf", FontFamily.SECONDARY_FONT_REGULAR);
             });

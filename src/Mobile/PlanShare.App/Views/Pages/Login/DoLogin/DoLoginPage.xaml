@@ -6,11 +6,12 @@
     xmlns:components="clr-namespace:PlanShare.App.Views.Components.Inputs"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants">
     <VerticalStackLayout Spacing="30">
-        <Label Margin="0,0,0,10" Style="{StaticResource PageTitle}" Text="Login" />
+        <Label
+            Margin="0,0,0,10"
+            Style="{StaticResource PageTitle}"
+            Text="Login" />
 
-        <components:EntryAndLabelComponent
-            Title="Email"
-            Placeholder="bruce@waynetech.com" />
+        <components:EntryAndLabelComponent Title="Email" Placeholder="bruce@waynetech.com" />
 
         <components:EntryAndLabelPasswordComponent Title="Senha" />
 

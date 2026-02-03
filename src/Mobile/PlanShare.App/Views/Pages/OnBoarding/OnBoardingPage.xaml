@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.OnBoarding"
     x:DataType="viewModel:OnBoardingViewModel"
     Shell.NavBarIsVisible="False">
@@ -32,7 +33,7 @@
             Command="{Binding LoginWithEmailAndPasswordCommand}"
             CornerRadius="20"
             HeightRequest="60"
-            Text="Login com Email e senha" />
+            Text="{Static resourceFile:ResourceTexts.LOGIN_WITH_EMAIL_PASSWORD}" />
 
         <VerticalStackLayout Padding="0,8,0,0" HeightRequest="40">
             <VerticalStackLayout.GestureRecognizers>
@@ -46,7 +47,8 @@
                         <Span
                             FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
                             Text="Crie a sua conta!"
-                            TextColor="#0065F2" />
+                            TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                        Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
