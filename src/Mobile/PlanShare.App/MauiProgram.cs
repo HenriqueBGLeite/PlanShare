@@ -2,7 +2,11 @@
 using PlanShare.App.Constants;
 using PlanShare.App.Navigation;
 using PlanShare.App.Resources.Styles.Handlers;
+using PlanShare.App.ViewModels.Pages.Login.DoLogin;
+using PlanShare.App.ViewModels.Pages.OnBoarding;
+using PlanShare.App.ViewModels.Pages.User.Register;
 using PlanShare.App.Views.Pages.Login.DoLogin;
+using PlanShare.App.Views.Pages.OnBoarding;
 using PlanShare.App.Views.Pages.User.Register;
 
 namespace PlanShare.App;
@@ -16,6 +20,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .AddPages()
+            .AddNavigationService()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Raleway-Black.ttf", FontFamily.MAIN_FONT_BLACK);
@@ -34,8 +39,17 @@ public static class MauiProgram
 
     private static MauiAppBuilder AddPages(this MauiAppBuilder appBuilder)
     {
-        Routing.RegisterRoute(RoutePages.DO_LOGIN_PAGE, typeof(DoLoginPage));
-        Routing.RegisterRoute(RoutePages.USER_REGISTER_ACCOUNT_PAGE, typeof(RegisterUserAccountPage));
+        appBuilder.Services.AddTransient<OnBoardingViewModel>();
+
+        appBuilder.Services.AddTransientWithShellRoute<DoLoginPage, DoLoginViewModel>(RoutePages.DO_LOGIN_PAGE);
+        appBuilder.Services.AddTransientWithShellRoute<RegisterUserAccountPage, RegisterUserAccountViewModel>(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
+
+        return appBuilder;
+    }
+
+    private static MauiAppBuilder AddNavigationService(this MauiAppBuilder appBuilder)
+    {
+        appBuilder.Services.AddSingleton<INavigationService, NavigationService>();
 
         return appBuilder;
     }

@@ -77,5 +77,14 @@ namespace PlanShare.App.Resources {
                 return ResourceManager.GetString("SUBTITLE_REGISTER_ACCOUNT", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register my account.
+        /// </summary>
+        public static string TITLE_REGISTER_MY_ACCOUNT {
+            get {
+                return ResourceManager.GetString("TITLE_REGISTER_MY_ACCOUNT", resourceCulture);
+            }
+        }
     }
 }

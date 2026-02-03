@@ -123,4 +123,7 @@
   <data name="SUBTITLE_REGISTER_ACCOUNT" xml:space="preserve">
     <value>Take charge of your routine with ease—because you deserve more time for what you love!</value>
   </data>
+  <data name="TITLE_REGISTER_MY_ACCOUNT" xml:space="preserve">
+    <value>Register my account</value>
+  </data>
 </root>
