@@ -3,56 +3,86 @@
     x:Class="PlanShare.App.Views.Pages.User.Register.RegisterUserAccountPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:component="clr-namespace:PlanShare.App.Views.Components.Inputs"
+    xmlns:animationComponent="clr-namespace:PlanShare.App.Views.Components.StatusPage"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:inputsComponent="clr-namespace:PlanShare.App.Views.Components.Inputs"
+    xmlns:models="clr-namespace:PlanShare.App.Models"
     xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.User.Register"
     x:DataType="viewModel:RegisterUserAccountViewModel">
-    <VerticalStackLayout Spacing="30">
-        <Label Style="{StaticResource PageTitle}" Text="Criar minha Conta" />
 
-        <Label Margin="0,-10,0,10" Text="{Static resourceFile:ResourceTexts.SUBTITLE_REGISTER_ACCOUNT}" />
+    <VerticalStackLayout>
+        <VerticalStackLayout IsVisible="False" Spacing="30">
+            <VerticalStackLayout.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="VerticalStackLayout"
+                    Value="{Static models:StatusPage.Default}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </VerticalStackLayout.Triggers>
 
-        <component:EntryAndLabelComponent
-            Title="Nome"
-            Placeholder="Bruce Wayne"
-            TextValue="{Binding Model.Name}" />
+            <Label Style="{StaticResource PageTitle}" Text="Criar minha Conta" />
 
-        <component:EntryAndLabelComponent
-            Title="Email"
-            Keyboard="Email"
-            Placeholder="bruce@waynetech.com"
-            TextValue="{Binding Model.Email}" />
+            <Label Margin="0,-10,0,10" Text="{Static resourceFile:ResourceTexts.SUBTITLE_REGISTER_ACCOUNT}" />
 
-        <component:EntryAndLabelPasswordComponent Title="Senha" TextValue="{Binding Model.Password}" />
+            <inputsComponent:EntryAndLabelComponent
+                Title="Nome"
+                Placeholder="Bruce Wayne"
+                TextValue="{Binding Model.Name}" />
 
-        <Button
-            Margin="0,40"
-            BackgroundColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
-                                              Dark={StaticResource HIGHLIGHT_COLOR_DARK}}"
-            Command="{Binding RegisterAccountCommand}"
-            CornerRadius="20"
-            HeightRequest="60"
-            Text="{Static resourceFile:ResourceTexts.TITLE_REGISTER_MY_ACCOUNT}" />
+            <inputsComponent:EntryAndLabelComponent
+                Title="Email"
+                Keyboard="Email"
+                Placeholder="bruce@waynetech.com"
+                TextValue="{Binding Model.Email}" />
 
-        <VerticalStackLayout Padding="0,8,0,0" HeightRequest="40">
-            <VerticalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
-            </VerticalStackLayout.GestureRecognizers>
+            <inputsComponent:EntryAndLabelPasswordComponent Title="Senha" TextValue="{Binding Model.Password}" />
 
-            <Label FontSize="18" HorizontalOptions="Center">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Já possui uma conta?" />
-                        <Span Text=" " />
-                        <Span
-                            FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
-                            Text="Faça login!"
-                            TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
-                                                        Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Button
+                Margin="0,40"
+                BackgroundColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                  Dark={StaticResource HIGHLIGHT_COLOR_DARK}}"
+                Command="{Binding RegisterAccountCommand}"
+                CornerRadius="20"
+                HeightRequest="60"
+                Text="{Static resourceFile:ResourceTexts.TITLE_REGISTER_MY_ACCOUNT}" />
+
+            <VerticalStackLayout Padding="0,8,0,0" HeightRequest="40">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToLoginCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Label FontSize="18" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Já possui uma conta?" />
+                            <Span Text=" " />
+                            <Span
+                                FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
+                                Text="Faça login!"
+                                TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                            Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </VerticalStackLayout>
         </VerticalStackLayout>
+
+
+        <animationComponent:AnimationSendInformationComponent
+            HorizontalOptions="Center"
+            IsVisible="False"
+            VerticalOptions="Center">
+            <animationComponent:AnimationSendInformationComponent.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="animationComponent:AnimationSendInformationComponent"
+                    Value="{Static models:StatusPage.Sending}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </animationComponent:AnimationSendInformationComponent.Triggers>
+        </animationComponent:AnimationSendInformationComponent>
     </VerticalStackLayout>
+
 </ContentPage>

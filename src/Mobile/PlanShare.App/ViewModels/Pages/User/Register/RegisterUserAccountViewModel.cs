@@ -2,10 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using PlanShare.App.Models;
 using PlanShare.App.Navigation;
+using PlanShare.App.UseCases.User.Register;
 
 namespace PlanShare.App.ViewModels.Pages.User.Register;
 
-public partial class RegisterUserAccountViewModel(INavigationService navigationService) : ViewModelBase
+public partial class RegisterUserAccountViewModel(INavigationService navigationService, IRegisterUserUseCase registerUserUseCase) : ViewModelBase
 {
     [ObservableProperty]
     public partial UserRegisterAccount Model { get; set; } = new();
@@ -16,6 +17,10 @@ public partial class RegisterUserAccountViewModel(INavigationService navigationS
     [RelayCommand]
     public async Task RegisterAccount()
     {
-        var teste = Model;
+        StatusPage = StatusPage.Sending;
+
+        await registerUserUseCase.Execute(Model);
+
+        StatusPage = StatusPage.Default;
     }
 }
