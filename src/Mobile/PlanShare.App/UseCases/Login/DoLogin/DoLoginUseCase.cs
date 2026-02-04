@@ -1,18 +1,26 @@
 ﻿using PlanShare.App.Data.Network.Api;
+using PlanShare.App.Data.Storage.Preferences.User;
+using PlanShare.App.Data.Storage.SecureStorage.Tokens;
 using PlanShare.Communication.Requests;
 
 namespace PlanShare.App.UseCases.Login.DoLogin;
 
-public class DoLoginUseCase(ILoginApi loginApi) : IDoLoginUseCase
+public class DoLoginUseCase(ILoginApi loginApi, IUserStorage userStorage, ITokensStorage tokensStorage) : IDoLoginUseCase
 {
-    public async Task Execute(Models.Login login)
+    public async Task Execute(Models.Login model)
     {
         var request = new RequestLoginJson
         {
-            Email = login.Email,
-            Password = login.Password,
+            Email = model.Email,
+            Password = model.Password,
         };
 
-        var result = await loginApi.Login(request);
+        var response = await loginApi.Login(request);
+
+        var user = new Models.ValueObjects.User(response.Id, response.Name);
+        var tokens = new Models.ValueObjects.Tokens(response.Tokens.AccessToken, response.Tokens.RefreshToken);
+
+        userStorage.Save(user);
+        await tokensStorage.Save(tokens);
     }
 }
