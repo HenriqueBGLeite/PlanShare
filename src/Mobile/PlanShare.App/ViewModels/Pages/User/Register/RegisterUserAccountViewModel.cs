@@ -19,7 +19,19 @@ public partial class RegisterUserAccountViewModel(INavigationService navigationS
     {
         StatusPage = StatusPage.Sending;
 
-        await registerUserUseCase.Execute(Model);
+        var result = await registerUserUseCase.Execute(Model);
+
+        if (result.IsSuccess == false)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "errors", result.ErrorMessages! }
+            };
+
+            await navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
+        }
+        else
+            await navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
 
         StatusPage = StatusPage.Default;
     }

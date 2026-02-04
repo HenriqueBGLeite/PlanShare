@@ -1,11 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PlanShare.App.UseCases.Login.DoLogin;
 using PlanShare.App.Models;
+using PlanShare.App.Navigation;
+using PlanShare.App.UseCases.Login.DoLogin;
 
 namespace PlanShare.App.ViewModels.Pages.Login.DoLogin;
 
-public partial class DoLoginViewModel(IDoLoginUseCase loginUseCase) : ViewModelBase
+public partial class DoLoginViewModel(INavigationService navigationService, IDoLoginUseCase loginUseCase) : ViewModelBase
 {
     [ObservableProperty]
     public partial Models.Login Model { get; set; } = new();
@@ -15,9 +16,19 @@ public partial class DoLoginViewModel(IDoLoginUseCase loginUseCase) : ViewModelB
     {
         StatusPage = StatusPage.Sending;
 
-        await Task.Delay(2000);
+        var result = await loginUseCase.Execute(Model);
 
-        await loginUseCase.Execute(Model);
+        if (result.IsSuccess == false)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "errors", result.ErrorMessages! }
+            };
+
+            await navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
+        }
+        else
+            await navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
 
         StatusPage = StatusPage.Default;
     }

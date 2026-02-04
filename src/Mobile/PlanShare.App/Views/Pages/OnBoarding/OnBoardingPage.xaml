@@ -44,7 +44,10 @@
             <VerticalStackLayout.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RegisterUserAccountCommand}" />
             </VerticalStackLayout.GestureRecognizers>
-            <Label FontSize="18" HorizontalOptions="Center">
+            <Label
+                FontSize="18"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="{Static resourceFile:ResourceTexts.PHRASE_DONT_HAVE_ACCOUNT}" />
