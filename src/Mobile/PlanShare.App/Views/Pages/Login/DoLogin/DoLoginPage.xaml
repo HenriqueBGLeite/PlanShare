@@ -7,6 +7,7 @@
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
     xmlns:inputComponents="clr-namespace:PlanShare.App.Views.Components.Inputs"
     xmlns:models="clr-namespace:PlanShare.App.Models"
+    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.Login.DoLogin"
     x:DataType="viewModel:DoLoginViewModel">
 
@@ -24,25 +25,25 @@
             <Label
                 Margin="0,0,0,10"
                 Style="{StaticResource PageTitle}"
-                Text="Login" />
+                Text="{Static resourceFile:ResourceTexts.PHRASE_LOGIN}" />
 
             <inputComponents:EntryAndLabelComponent
-                Title="Email"
+                Title="{Static resourceFile:ResourceTexts.TITLE_EMAIL}"
                 Placeholder="bruce@waynetech.com"
                 TextValue="{Binding Model.Email}" />
 
-            <inputComponents:EntryAndLabelPasswordComponent Title="Senha" TextValue="{Binding Model.Password}" />
+            <inputComponents:EntryAndLabelPasswordComponent Title="{Static resourceFile:ResourceTexts.TITLE_PASSWORD}" TextValue="{Binding Model.Password}" />
 
             <VerticalStackLayout Margin="0,10,0,40" HeightRequest="40">
                 <Label
                     Padding="0,8,0,0"
                     FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
                     HorizontalOptions="End"
-                    Text="Esqueceu sua senha?"
+                    Text="{Static resourceFile:ResourceTexts.PHRASE_FORGOT_YOUR_PASSWORD}"
                     TextDecorations="Underline" />
             </VerticalStackLayout>
 
-            <Button Command="{Binding DoLoginCommand}" Text="Login" />
+            <Button Command="{Binding DoLoginCommand}" Text="{Static resourceFile:ResourceTexts.PHRASE_DO_LOGIN}" />
         </VerticalStackLayout>
 
         <animationComponent:AnimationSendInformationComponent

@@ -117,13 +117,151 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CHANGE_PASSWORD" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="CONNECTION_UNEXPECTED_ERROR_WITH_USER" xml:space="preserve">
+    <value>An unexpected error occurred while trying to connect with {0}.</value>
+  </data>
+  <data name="DELETE_ACCOUNT" xml:space="preserve">
+    <value>Delete my account</value>
+  </data>
+  <data name="DELETE_PROFILE_PICTURE" xml:space="preserve">
+    <value>Delete profile picture</value>
+  </data>
+  <data name="ERROR_OCCURRED_WHILE_CONNECTING" xml:space="preserve">
+    <value>An error occurred while connecting. Please try again.</value>
+  </data>
+  <data name="FOLLOWING_ERRORS_WERE_FOUND" xml:space="preserve">
+    <value>The following errors were found</value>
+  </data>
   <data name="LOGIN_WITH_EMAIL_PASSWORD" xml:space="preserve">
     <value>Login with Email and Password</value>
+  </data>
+  <data name="PASSWORD_SUCCESSFULLY_CHANGED" xml:space="preserve">
+    <value>Your password has been successfully changed.</value>
+  </data>
+  <data name="PHRASE_ALREADY_HAS_ACCOUNT" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="PHRASE_CONNECTING_TO_THE_SERVER" xml:space="preserve">
+    <value>Please wait a moment, connecting to the server…</value>
+  </data>
+  <data name="PHRASE_CONTINUE_WITH_GOOGLE" xml:space="preserve">
+    <value>Continue with Google</value>
+  </data>
+  <data name="PHRASE_DONT_HAVE_ACCOUNT" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="PHRASE_DO_LOGIN" xml:space="preserve">
+    <value>Log in!</value>
+  </data>
+  <data name="PHRASE_FORGOT_YOUR_PASSWORD" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="PHRASE_LOGIN" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="PHRASE_PASSWORD_REQUIREMENTS" xml:space="preserve">
+    <value>Minimum 6 characters</value>
+  </data>
+  <data name="PHRASE_REGISTER_YOUR_ACCOUNT" xml:space="preserve">
+    <value>Create your account!</value>
+  </data>
+  <data name="PHRASE_SMALL_TASKS_BIG_RESULTS" xml:space="preserve">
+    <value>Small tasks, big results</value>
+  </data>
+  <data name="PHRASE_WAITING_APPROVAL_FROM" xml:space="preserve">
+    <value>Waiting for approval from {0}…</value>
+  </data>
+  <data name="PROFILE_INFORMATION_SUCCESSFULLY_UPDATED" xml:space="preserve">
+    <value>Your profile information has been successfully updated.</value>
+  </data>
+  <data name="PROFILE_PHOTO_SUCCESSFULLY_UPDATED" xml:space="preserve">
+    <value>Your profile photo has been successfully updated.</value>
+  </data>
+  <data name="SERVER_COMMUNICATION_ERROR" xml:space="preserve">
+    <value>An error occurred while communicating with the server. Please try again later.</value>
+  </data>
+  <data name="SUBTITLE_CONNECTION_BY_CODE" xml:space="preserve">
+    <value>Now the other person needs to enter the code displayed below on the screen to continue. 😊</value>
+  </data>
+  <data name="SUBTITLE_CONNECTION_CODE" xml:space="preserve">
+    <value>Enter the access code displayed on the screen of the app belonging to the person who is inviting you.</value>
   </data>
   <data name="SUBTITLE_REGISTER_ACCOUNT" xml:space="preserve">
     <value>Take charge of your routine with ease—because you deserve more time for what you love!</value>
   </data>
+  <data name="TAKE_PHOTO_UPLOAD" xml:space="preserve">
+    <value>Take a photo and upload it</value>
+  </data>
+  <data name="TASKS_SHARED_WITH" xml:space="preserve">
+    <value>Tasks shared with</value>
+  </data>
+  <data name="THE_USER_WHO_GENERATED_CODE_LOST_CONNECTION" xml:space="preserve">
+    <value>{0} lost the connection</value>
+  </data>
+  <data name="TITLE_ACCEPT" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="TITLE_CANCEL" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="TITLE_CANCEL_OPERATION" xml:space="preserve">
+    <value>Cancel operation</value>
+  </data>
+  <data name="TITLE_CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TITLE_CONNECTION_CODE" xml:space="preserve">
+    <value>Connection code</value>
+  </data>
+  <data name="TITLE_CURRENT_PASSWORD" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="TITLE_EMAIL" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TITLE_GENERATE_CONNECTION_CODE" xml:space="preserve">
+    <value>Generate connection code</value>
+  </data>
+  <data name="TITLE_NAME" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TITLE_NEW_PASSWORD" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="TITLE_PASSWORD" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="TITLE_REGISTER_MY_ACCOUNT" xml:space="preserve">
     <value>Register my account</value>
+  </data>
+  <data name="TITLE_SHARE_TASK" xml:space="preserve">
+    <value>Share task</value>
+  </data>
+  <data name="TITLE_USE_CONNECTION_CODE" xml:space="preserve">
+    <value>Use a connection code</value>
+  </data>
+  <data name="TITLE_WELCOME" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="TRY_IT_AGAIN" xml:space="preserve">
+    <value>Try it again</value>
+  </data>
+  <data name="UPDATE_PROFILE" xml:space="preserve">
+    <value>Update profile</value>
+  </data>
+  <data name="UPLOAD_PHOTO" xml:space="preserve">
+    <value>Upload a photo</value>
+  </data>
+  <data name="USER_JOINED_SUCCESSFULLY" xml:space="preserve">
+    <value>🎉 {0} joined successfully. You’re both connected!</value>
+  </data>
+  <data name="USER_WHO_GENERATED_CODE_APPROVED_CONNECTION" xml:space="preserve">
+    <value>🎉 {0} approved your connection — you’re now linked!</value>
+  </data>
+  <data name="USER_WHO_GENERATED_CODE_CANCELED_CONNECTION" xml:space="preserve">
+    <value>{0} canceled the connection request. Maybe next time!</value>
   </data>
 </root>

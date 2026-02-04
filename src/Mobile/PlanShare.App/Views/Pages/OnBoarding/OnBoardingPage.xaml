@@ -21,7 +21,7 @@
             FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
             FontSize="18"
             HorizontalOptions="Center"
-            Text="Tarefas pequenas, grandes resultados."
+            Text="{Static resourceFile:ResourceTexts.PHRASE_SMALL_TASKS_BIG_RESULTS}"
             TextColor="Black" />
 
         <Button
@@ -30,7 +30,7 @@
             CornerRadius="20"
             HeightRequest="60"
             ImageSource="google_logo.png"
-            Text="Continuar com Google"
+            Text="{Static resourceFile:ResourceTexts.PHRASE_CONTINUE_WITH_GOOGLE}"
             TextColor="Black" />
 
         <Button
@@ -47,11 +47,11 @@
             <Label FontSize="18" HorizontalOptions="Center">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="Não tem uma conta?" />
+                        <Span FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_REGULAR}" Text="{Static resourceFile:ResourceTexts.PHRASE_DONT_HAVE_ACCOUNT}" />
                         <Span Text=" " />
                         <Span
                             FontFamily="{Static fontFamily:FontFamily.SECONDARY_FONT_BLACK}"
-                            Text="Crie a sua conta!"
+                            Text="{Static resourceFile:ResourceTexts.PHRASE_REGISTER_YOUR_ACCOUNT}"
                             TextColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
                                                         Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
                     </FormattedString>
