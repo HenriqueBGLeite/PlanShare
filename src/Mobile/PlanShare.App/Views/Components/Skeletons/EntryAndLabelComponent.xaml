@@ -8,6 +8,9 @@
     <VerticalStackLayout BindingContext="{x:Reference this}">
         <Label Style="{StaticResource TitleForEntry}" Text="{Binding Title}" />
 
-        <skeleton:SkeletonView CornerRadius="3" HeightRequest="26" Margin="0,5,0,0"/>
+        <skeleton:SkeletonView
+            Margin="0,5,0,0"
+            CornerRadius="3"
+            HeightRequest="26" />
     </VerticalStackLayout>
 </ContentView>

@@ -6,7 +6,7 @@ using PlanShare.App.UseCases.Login.DoLogin;
 
 namespace PlanShare.App.ViewModels.Pages.Login.DoLogin;
 
-public partial class DoLoginViewModel(INavigationService navigationService, IDoLoginUseCase loginUseCase) : ViewModelBase
+public partial class DoLoginViewModel(INavigationService navigationService, IDoLoginUseCase loginUseCase) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial Models.Login Model { get; set; } = new();
@@ -19,16 +19,9 @@ public partial class DoLoginViewModel(INavigationService navigationService, IDoL
         var result = await loginUseCase.Execute(Model);
 
         if (result.IsSuccess == false)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "errors", result.ErrorMessages! }
-            };
-
-            await navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }
+            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
         else
-            await navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+            await GoToPageWithErrors(result);
 
         StatusPage = StatusPage.Default;
     }

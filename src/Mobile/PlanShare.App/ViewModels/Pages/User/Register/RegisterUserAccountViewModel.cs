@@ -6,7 +6,7 @@ using PlanShare.App.UseCases.User.Register;
 
 namespace PlanShare.App.ViewModels.Pages.User.Register;
 
-public partial class RegisterUserAccountViewModel(INavigationService navigationService, IRegisterUserUseCase registerUserUseCase) : ViewModelBase
+public partial class RegisterUserAccountViewModel(INavigationService navigationService, IRegisterUserUseCase registerUserUseCase) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial UserRegisterAccount Model { get; set; } = new();
@@ -20,18 +20,10 @@ public partial class RegisterUserAccountViewModel(INavigationService navigationS
         StatusPage = StatusPage.Sending;
 
         var result = await registerUserUseCase.Execute(Model);
-
-        if (result.IsSuccess == false)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "errors", result.ErrorMessages! }
-            };
-
-            await navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }
+        if (result.IsSuccess)
+            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
         else
-            await navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+            await GoToPageWithErrors(result);
 
         StatusPage = StatusPage.Default;
     }

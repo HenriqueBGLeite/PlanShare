@@ -5,7 +5,7 @@ using PlanShare.App.UseCases.User.Profile;
 
 namespace PlanShare.App.ViewModels.Pages.User.Profile;
 
-public partial class UserProfileViewModel(INavigationService navigationService, IGetUserProfileUseCase getUserProfileUseCase) : ViewModelBase
+public partial class UserProfileViewModel(INavigationService navigationService, IGetUserProfileUseCase getUserProfileUseCase) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial Models.User Model { get; set; } = new();
@@ -17,17 +17,10 @@ public partial class UserProfileViewModel(INavigationService navigationService, 
 
         var result = await getUserProfileUseCase.Execute();            
 
-        if (result.IsSuccess == false)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "errors", result.ErrorMessages! }
-            };
-
-            await navigationService.GoToAsync(RoutePages.ERROR_PAGE, parameters);
-        }
-        else
+        if (result.IsSuccess)
             Model = result.Response!;
+        else
+            await GoToPageWithErrors(result);
 
         StatusPage = Models.StatusPage.Default;
     }
