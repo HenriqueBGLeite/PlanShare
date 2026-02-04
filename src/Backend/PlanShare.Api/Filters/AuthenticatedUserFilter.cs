@@ -21,7 +21,7 @@ public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator,
 
             var userIdentifier = accessTokenValidator.GetUserIdentifier(token);
 
-            var user = userReadOnlyRepository.GetById(userIdentifier);
+            var user = await userReadOnlyRepository.GetById(userIdentifier);
             if (user is null)
                 throw new UnauthorizedException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
         }
