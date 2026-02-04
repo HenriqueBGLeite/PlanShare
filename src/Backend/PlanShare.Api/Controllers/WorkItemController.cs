@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PlanShare.Api.Attibutes;
 using PlanShare.Application.UseCases.WorkItem.Delete;
 using PlanShare.Application.UseCases.WorkItem.GetAll;
 using PlanShare.Application.UseCases.WorkItem.GetById;
@@ -11,6 +12,7 @@ namespace PlanShare.Api.Controllers;
 
 [Route("[controller]")]
 [ApiController]
+[AuthenticatedUser]
 public class WorkItemController : ControllerBase
 {
     [HttpPost]

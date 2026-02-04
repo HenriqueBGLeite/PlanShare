@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using PlanShare.Api.Converters;
 using PlanShare.Api.Filters;

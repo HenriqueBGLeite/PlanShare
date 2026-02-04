@@ -19,7 +19,7 @@ namespace PlanShare.Exceptions {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ResourceMessagesException {
@@ -57,6 +57,15 @@ namespace PlanShare.Exceptions {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This code is already linked to another connection. Please ask for a new one..
+        /// </summary>
+        public static string CODE_ALREADY_LINKED_ANOTHER_CONNECTION {
+            get {
+                return ResourceManager.GetString("CODE_ALREADY_LINKED_ANOTHER_CONNECTION", resourceCulture);
             }
         }
         
@@ -133,6 +142,33 @@ namespace PlanShare.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request don&apos;t have token..
+        /// </summary>
+        public static string NO_TOKEN {
+            get {
+                return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No user has connected with this code..
+        /// </summary>
+        public static string NO_USER_CONNECTED_WITH_CODE {
+            get {
+                return ResourceManager.GetString("NO_USER_CONNECTED_WITH_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only images (PNG, JPG, JPEG) are accepted..
+        /// </summary>
+        public static string ONLY_IMAGES_ACCEPTED {
+            get {
+                return ResourceManager.GetString("ONLY_IMAGES_ACCEPTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current password entered does not match the one registered in the system..
         /// </summary>
         public static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {
@@ -151,6 +187,24 @@ namespace PlanShare.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided code does not exist..
+        /// </summary>
+        public static string PROVIDED_CODE_DOES_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("PROVIDED_CODE_DOES_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection not allowed: the same user cannot connect with themselves..
+        /// </summary>
+        public static string SAME_USER_CANNOT_CONNECT_THEMSELVE {
+            get {
+                return ResourceManager.GetString("SAME_USER_CANNOT_CONNECT_THEMSELVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error..
         /// </summary>
         public static string UNKNOWN_ERROR {
@@ -160,11 +214,38 @@ namespace PlanShare.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User not found..
+        /// </summary>
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t access this resource..
+        /// </summary>
+        public static string USER_WITHOUT_PERMISSION_ACCESS_RESOURCE {
+            get {
+                return ResourceManager.GetString("USER_WITHOUT_PERMISSION_ACCESS_RESOURCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The task was not found..
         /// </summary>
         public static string WORK_ITEM_NOT_FOUND {
             get {
                 return ResourceManager.GetString("WORK_ITEM_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You’re already connected with {0}..
+        /// </summary>
+        public static string YOU_ARE_ALREADY_CONNECTED_WITH {
+            get {
+                return ResourceManager.GetString("YOU_ARE_ALREADY_CONNECTED_WITH", resourceCulture);
             }
         }
     }
