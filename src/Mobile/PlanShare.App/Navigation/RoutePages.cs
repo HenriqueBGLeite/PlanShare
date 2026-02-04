@@ -11,4 +11,5 @@ public class RoutePages
     public const string DO_LOGIN_PAGE = "DoLoginPage";
 
     public const string USER_REGISTER_ACCOUNT_PAGE = "RegisterUserAccountPage";
+    public const string USER_UPDATE_PROFILE_PAGE = "UpdateUserProfilePage";
 }
