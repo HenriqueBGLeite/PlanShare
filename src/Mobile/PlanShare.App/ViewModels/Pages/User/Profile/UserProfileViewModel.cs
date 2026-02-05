@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PlanShare.App.Navigation;
+using PlanShare.App.Resources;
 using PlanShare.App.UseCases.User.Profile;
 using PlanShare.App.UseCases.User.Update;
 
@@ -35,7 +36,7 @@ public partial class UserProfileViewModel(INavigationService navigationService, 
 
         if (result.IsSuccess)
         {
-
+            await _navigationService.ShowSuccessFeedback(ResourceTexts.PROFILE_INFORMATION_SUCCESSFULLY_UPDATED);
         }
         else
             await GoToPageWithErrors(result);

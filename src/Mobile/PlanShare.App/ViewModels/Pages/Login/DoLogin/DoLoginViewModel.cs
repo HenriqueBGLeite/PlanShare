@@ -19,7 +19,7 @@ public partial class DoLoginViewModel(INavigationService navigationService, IDoL
         var result = await loginUseCase.Execute(Model);
 
         if (result.IsSuccess)
-            await _navigationService.GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+            await _navigationService.GoToDashboardPage();
         else
             await GoToPageWithErrors(result);
 
