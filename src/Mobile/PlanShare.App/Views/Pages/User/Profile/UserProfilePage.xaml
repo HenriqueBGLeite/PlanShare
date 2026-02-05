@@ -73,9 +73,6 @@
                 </Border>
             </VerticalStackLayout>
 
-            <Label Text="{Binding Model.Name}" TextColor="Black" />
-            <Label Text="HENRIQUE" TextColor="Black" />
-
             <inputsComponent:EntryAndLabelComponent
                 Title="{Static resourceFile:ResourceTexts.TITLE_NAME}"
                 Margin="0,35,0,30"

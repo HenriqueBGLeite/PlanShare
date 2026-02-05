@@ -1,4 +1,5 @@
 ﻿using PlanShare.App.Data.Storage.SecureStorage.Tokens;
+using PlanShare.App.Navigation;
 using PlanShare.App.UseCases.Authentication.Refresh;
 using PlanShare.Communication.Responses;
 using System.Globalization;
@@ -8,7 +9,9 @@ using System.Net.Http.Json;
 
 namespace PlanShare.App.Data.Network;
 
-public partial class PlanShareHandler(ITokensStorage tokensStorage, IUseRefreshTokenUseCase useRefreshTokenUseCase) : DelegatingHandler
+public partial class PlanShareHandler(ITokensStorage tokensStorage, 
+    IUseRefreshTokenUseCase useRefreshTokenUseCase,
+    INavigationService navigationService) : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
@@ -28,9 +31,13 @@ public partial class PlanShareHandler(ITokensStorage tokensStorage, IUseRefreshT
             if (error!.TokenIsExpired)
             {
                 var result = await useRefreshTokenUseCase.Execute();
-
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result.Response!.AccessToken);
-                response = await base.SendAsync(request, cancellationToken);
+                if (result.IsSuccess)
+                {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result.Response!.AccessToken);
+                    response = await base.SendAsync(request, cancellationToken);
+                }
+                else
+                    await navigationService.GoToOnBoardingPage();
             }
         }
 

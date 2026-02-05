@@ -11,6 +11,6 @@
         <skeleton:SkeletonView
             Margin="0,5,0,0"
             CornerRadius="3"
-            HeightRequest="26" />
+            HeightRequest="38" />
     </VerticalStackLayout>
 </ContentView>

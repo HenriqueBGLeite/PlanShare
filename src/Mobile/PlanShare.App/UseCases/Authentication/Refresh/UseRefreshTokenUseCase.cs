@@ -30,6 +30,9 @@ public class UseRefreshTokenUseCase(IAuthenticationApi authenticationApi,
             return Result<Tokens>.Success(tokens);
         }
 
+        userStorage.Clear();
+        tokensStorage.Clear();
+
         return Result<Tokens>.Failure([]);
     }
 }

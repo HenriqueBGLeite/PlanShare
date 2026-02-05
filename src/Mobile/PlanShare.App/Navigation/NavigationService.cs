@@ -4,10 +4,8 @@ using CommunityToolkit.Maui.Core;
 using Microsoft.Maui.Controls.Shapes;
 using PlanShare.App.Constants;
 using PlanShare.App.Extensions;
-using PlanShare.App.Models.Enums;
 using PlanShare.App.Resources;
 using PlanShare.App.ViewModels.Popups;
-using PlanShare.App.ViewModels.Popups.File;
 
 namespace PlanShare.App.Navigation;
 
@@ -21,6 +19,8 @@ public class NavigationService(IPopupService popupService) : INavigationService
     public async Task ClosePage() => await GoToAsync("..");
 
     public async Task GoToDashboardPage() => await GoToAsync($"//{RoutePages.DASHBOARD_PAGE}");
+
+    public async Task GoToOnBoardingPage() => await GoToAsync($"//{RoutePages.ONBOARDING_PAGE}");
 
     public async Task ShowSuccessFeedback(string message)
     {
