@@ -1,7 +1,5 @@
-﻿using CommunityToolkit.Maui;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls.Shapes;
 using PlanShare.App.Models.Enums;
 using PlanShare.App.Navigation;
 using PlanShare.App.Resources;
@@ -13,8 +11,7 @@ namespace PlanShare.App.ViewModels.Pages.User.Profile;
 
 public partial class UserProfileViewModel(INavigationService navigationService, 
     IGetUserProfileUseCase getUserProfileUseCase, 
-    IUpdateUserUseCase updateUserUseCase,
-    IPopupService popupService) : ViewModelBase(navigationService)
+    IUpdateUserUseCase updateUserUseCase) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial Models.User Model { get; set; } = new();
@@ -22,16 +19,16 @@ public partial class UserProfileViewModel(INavigationService navigationService,
     [RelayCommand]
     public async Task Initialize()
     {
-        //StatusPage = Models.StatusPage.Loading;
+        StatusPage = Models.StatusPage.Loading;
 
-        //var result = await getUserProfileUseCase.Execute();            
+        var result = await getUserProfileUseCase.Execute();
 
-        //if (result.IsSuccess)
-        //    Model = result.Response!;
-        //else
-        //    await GoToPageWithErrors(result);
+        if (result.IsSuccess)
+            Model = result.Response!;
+        else
+            await GoToPageWithErrors(result);
 
-        //StatusPage = Models.StatusPage.Default;
+        StatusPage = Models.StatusPage.Default;
     }
 
     [RelayCommand]
