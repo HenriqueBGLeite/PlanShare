@@ -20,7 +20,7 @@ public partial class UserProfileViewModel(INavigationService navigationService,
     public partial Models.User Model { get; set; } = new();
 
     [ObservableProperty]
-    public partial string PhotoPath { get; set; } = string.Empty;
+    public partial string? PhotoPath { get; set; }
 
 
     [RelayCommand]

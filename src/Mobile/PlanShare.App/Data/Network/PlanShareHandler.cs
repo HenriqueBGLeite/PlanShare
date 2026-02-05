@@ -1,10 +1,14 @@
 ﻿using PlanShare.App.Data.Storage.SecureStorage.Tokens;
+using PlanShare.App.UseCases.Authentication.Refresh;
+using PlanShare.Communication.Responses;
 using System.Globalization;
+using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace PlanShare.App.Data.Network;
 
-public partial class PlanShareHandler(ITokensStorage tokensStorage) : DelegatingHandler
+public partial class PlanShareHandler(ITokensStorage tokensStorage, IUseRefreshTokenUseCase useRefreshTokenUseCase) : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
@@ -15,7 +19,22 @@ public partial class PlanShareHandler(ITokensStorage tokensStorage) : Delegating
         if (string.IsNullOrWhiteSpace(tokens.AccessToken) == false)
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokens.AccessToken);
 
-        return await base.SendAsync(request, cancellationToken);
+        var response = await base.SendAsync(request, cancellationToken);
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            await response.Content.LoadIntoBufferAsync(cancellationToken);
+
+            var error = await response.Content.ReadFromJsonAsync<ResponseErrorJson>(cancellationToken);
+            if (error!.TokenIsExpired)
+            {
+                var result = await useRefreshTokenUseCase.Execute();
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result.Response!.AccessToken);
+                response = await base.SendAsync(request, cancellationToken);
+            }
+        }
+
+        return response;
     }
 
     private static void ChangeRequestCulture(HttpRequestMessage request)
