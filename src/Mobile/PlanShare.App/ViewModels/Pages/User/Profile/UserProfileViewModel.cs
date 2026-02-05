@@ -11,10 +11,15 @@ namespace PlanShare.App.ViewModels.Pages.User.Profile;
 
 public partial class UserProfileViewModel(INavigationService navigationService, 
     IGetUserProfileUseCase getUserProfileUseCase, 
-    IUpdateUserUseCase updateUserUseCase) : ViewModelBase(navigationService)
+    IUpdateUserUseCase updateUserUseCase,
+    IMediaPicker mediaPicker) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial Models.User Model { get; set; } = new();
+
+    [ObservableProperty]
+    public partial string PhotoPath { get; set; } = string.Empty;
+
 
     [RelayCommand]
     public async Task Initialize()
@@ -55,5 +60,31 @@ public partial class UserProfileViewModel(INavigationService navigationService,
     public async Task ChangeProfilePhoto()
     {
         var optionsSelected = await _navigationService.ShowPopup<OptionsForProfilePhotoViewModel, ChooseFileOption>();
+        switch (optionsSelected) 
+        {
+            case ChooseFileOption.TakePicture:
+                {
+                    var photo = await mediaPicker.CapturePhotoAsync();
+                    UpdatePhotoProcess(photo);
+                }
+                break;
+            case ChooseFileOption.UploadFromGallery:
+                {
+                    var photo = await mediaPicker.PickPhotosAsync();
+                    UpdatePhotoProcess(photo[0]);
+                }
+                break;
+            case ChooseFileOption.DeleteCurrentPicture:
+                {
+                    PhotoPath = string.Empty;
+                }
+                break;
+        }
+    }
+
+    private void UpdatePhotoProcess(FileResult? photo)
+    {
+        if (photo is not null)
+            PhotoPath = photo.FullPath;
     }
 }
