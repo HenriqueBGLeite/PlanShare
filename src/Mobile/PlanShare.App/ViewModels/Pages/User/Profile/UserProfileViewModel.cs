@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using PlanShare.App.Models.Enums;
 using PlanShare.App.Navigation;
 using PlanShare.App.Resources;
+using PlanShare.App.UseCases.User.Photo;
 using PlanShare.App.UseCases.User.Profile;
 using PlanShare.App.UseCases.User.Update;
 using PlanShare.App.ViewModels.Popups.File;
@@ -12,7 +13,8 @@ namespace PlanShare.App.ViewModels.Pages.User.Profile;
 public partial class UserProfileViewModel(INavigationService navigationService, 
     IGetUserProfileUseCase getUserProfileUseCase, 
     IUpdateUserUseCase updateUserUseCase,
-    IMediaPicker mediaPicker) : ViewModelBase(navigationService)
+    IMediaPicker mediaPicker,
+    IChangeUserPhotoUseCase changeUserPhotoUseCase) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial Models.User Model { get; set; } = new();
@@ -44,9 +46,7 @@ public partial class UserProfileViewModel(INavigationService navigationService,
         var result = await updateUserUseCase.Execute(Model);
 
         if (result.IsSuccess)
-        {
-            await _navigationService.ShowSuccessFeedback(ResourceTexts.PROFILE_INFORMATION_SUCCESSFULLY_UPDATED);
-        }
+            await _navigationService.ShowSuccessFeedback(ResourceTexts.PROFILE_INFORMATION_SUCCESSFULLY_UPDATED);        
         else
             await GoToPageWithErrors(result);
 
@@ -65,13 +65,13 @@ public partial class UserProfileViewModel(INavigationService navigationService,
             case ChooseFileOption.TakePicture:
                 {
                     var photo = await mediaPicker.CapturePhotoAsync();
-                    UpdatePhotoProcess(photo);
+                    await UpdateProfilePhoto(photo);
                 }
                 break;
             case ChooseFileOption.UploadFromGallery:
                 {
                     var photo = await mediaPicker.PickPhotosAsync();
-                    UpdatePhotoProcess(photo[0]);
+                    await UpdateProfilePhoto(photo[0]);
                 }
                 break;
             case ChooseFileOption.DeleteCurrentPicture:
@@ -82,9 +82,20 @@ public partial class UserProfileViewModel(INavigationService navigationService,
         }
     }
 
-    private void UpdatePhotoProcess(FileResult? photo)
+    private async Task UpdateProfilePhoto(FileResult? photo)
     {
         if (photo is not null)
+        {
+            StatusPage = Models.StatusPage.Sending;
+
+            var result = await changeUserPhotoUseCase.Execute(photo);
+            if (result.IsSuccess)
+                await _navigationService.ShowSuccessFeedback(ResourceTexts.PROFILE_PHOTO_SUCCESSFULLY_UPDATED);
+            else
+                await GoToPageWithErrors(result);
+
             PhotoPath = photo.FullPath;
+            StatusPage = Models.StatusPage.Default;
+        }
     }
 }
