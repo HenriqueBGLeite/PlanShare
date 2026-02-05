@@ -12,7 +12,7 @@ public partial class RegisterUserAccountViewModel(INavigationService navigationS
     public partial UserRegisterAccount Model { get; set; } = new();
 
     [RelayCommand]
-    public async Task GoToLogin() => await navigationService.GoToAsync($"../{RoutePages.DO_LOGIN_PAGE}");
+    public async Task GoToLogin() => await _navigationService.GoToAsync($"../{RoutePages.DO_LOGIN_PAGE}");
 
     [RelayCommand]
     public async Task RegisterAccount()

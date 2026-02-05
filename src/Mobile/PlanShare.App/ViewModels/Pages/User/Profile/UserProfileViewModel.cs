@@ -1,13 +1,20 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls.Shapes;
+using PlanShare.App.Models.Enums;
 using PlanShare.App.Navigation;
 using PlanShare.App.Resources;
 using PlanShare.App.UseCases.User.Profile;
 using PlanShare.App.UseCases.User.Update;
+using PlanShare.App.ViewModels.Popups.File;
 
 namespace PlanShare.App.ViewModels.Pages.User.Profile;
 
-public partial class UserProfileViewModel(INavigationService navigationService, IGetUserProfileUseCase getUserProfileUseCase, IUpdateUserUseCase updateUserUseCase) : ViewModelBase(navigationService)
+public partial class UserProfileViewModel(INavigationService navigationService, 
+    IGetUserProfileUseCase getUserProfileUseCase, 
+    IUpdateUserUseCase updateUserUseCase,
+    IPopupService popupService) : ViewModelBase(navigationService)
 {
     [ObservableProperty]
     public partial Models.User Model { get; set; } = new();
@@ -15,16 +22,16 @@ public partial class UserProfileViewModel(INavigationService navigationService, 
     [RelayCommand]
     public async Task Initialize()
     {
-        StatusPage = Models.StatusPage.Loading;
+        //StatusPage = Models.StatusPage.Loading;
 
-        var result = await getUserProfileUseCase.Execute();            
+        //var result = await getUserProfileUseCase.Execute();            
 
-        if (result.IsSuccess)
-            Model = result.Response!;
-        else
-            await GoToPageWithErrors(result);
+        //if (result.IsSuccess)
+        //    Model = result.Response!;
+        //else
+        //    await GoToPageWithErrors(result);
 
-        StatusPage = Models.StatusPage.Default;
+        //StatusPage = Models.StatusPage.Default;
     }
 
     [RelayCommand]
@@ -45,5 +52,23 @@ public partial class UserProfileViewModel(INavigationService navigationService, 
     }
 
     [RelayCommand]
-    public async Task ChangePassword() => await navigationService.GoToAsync(RoutePages.USER_CHANGE_PASSWORD_PAGE);
+    public async Task ChangePassword() => await _navigationService.GoToAsync(RoutePages.USER_CHANGE_PASSWORD_PAGE);
+
+    [RelayCommand]
+    public async Task ChangeProfilePhoto()
+    {
+        var popupOptions = new PopupOptions
+        {
+            Shadow = null,
+            Shape = new RoundRectangle
+            {
+                CornerRadius = new CornerRadius(10),
+                StrokeThickness = 0
+            },
+        };
+
+        var result = await popupService.ShowPopupAsync<OptionsForProfilePhotoViewModel, ChooseFileOption>(Shell.Current, popupOptions);
+
+        var fileOption = result.Result;
+    }
 }
