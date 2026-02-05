@@ -1,13 +1,17 @@
-﻿
+﻿using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using Microsoft.Maui.Controls.Shapes;
 using PlanShare.App.Constants;
 using PlanShare.App.Extensions;
+using PlanShare.App.Models.Enums;
 using PlanShare.App.Resources;
+using PlanShare.App.ViewModels.Popups;
+using PlanShare.App.ViewModels.Popups.File;
 
 namespace PlanShare.App.Navigation;
 
-public class NavigationService : INavigationService
+public class NavigationService(IPopupService popupService) : INavigationService
 {
     public async Task GoToAsync(ShellNavigationState state) => await Shell.Current.GoToAsync(state);
 
@@ -39,5 +43,25 @@ public class NavigationService : INavigationService
         var snackbar = Snackbar.Make(message, action: null, actionButtonText: ResourceTexts.TITLE_CLOSE, duration, snackbarOptions);
 
         await snackbar.Show();
+    }
+
+    public async Task<TResult> ShowPopup<TViewModel, TResult>() 
+        where TViewModel : ViewModelBaseForPopups
+        where TResult : notnull
+    {
+        var popupOptions = new PopupOptions
+        {
+            Shadow = null,
+            Shape = new RoundRectangle
+            {
+                CornerRadius = new CornerRadius(10),
+                StrokeThickness = 0
+            },
+            CanBeDismissedByTappingOutsideOfPopup = false,
+        };
+
+        var result = await popupService.ShowPopupAsync<TViewModel, TResult>(Shell.Current, popupOptions);
+
+        return result.Result!;
     }
 }

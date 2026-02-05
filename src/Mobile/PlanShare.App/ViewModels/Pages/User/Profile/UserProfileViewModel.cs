@@ -57,18 +57,6 @@ public partial class UserProfileViewModel(INavigationService navigationService,
     [RelayCommand]
     public async Task ChangeProfilePhoto()
     {
-        var popupOptions = new PopupOptions
-        {
-            Shadow = null,
-            Shape = new RoundRectangle
-            {
-                CornerRadius = new CornerRadius(10),
-                StrokeThickness = 0
-            },
-        };
-
-        var result = await popupService.ShowPopupAsync<OptionsForProfilePhotoViewModel, ChooseFileOption>(Shell.Current, popupOptions);
-
-        var fileOption = result.Result;
+        var optionsSelected = await _navigationService.ShowPopup<OptionsForProfilePhotoViewModel, ChooseFileOption>();
     }
 }
