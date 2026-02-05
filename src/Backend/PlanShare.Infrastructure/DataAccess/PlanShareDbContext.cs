@@ -7,6 +7,7 @@ public sealed class PlanShareDbContext : DbContext
     public PlanShareDbContext(DbContextOptions options) : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<WorkItem> WorkItems { get; set; }
     public DbSet<PersonAssociation> PersonAssociations { get; set; }
 
