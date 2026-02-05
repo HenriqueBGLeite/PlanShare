@@ -1,7 +1,9 @@
 ﻿using FluentMigrator.Runner;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PlanShare.Domain.Extensions;
 using PlanShare.Domain.Repositories;
 using PlanShare.Domain.Repositories.Association;
 using PlanShare.Domain.Repositories.RefreshToken;
@@ -16,20 +18,25 @@ using PlanShare.Infrastructure.Extensions;
 using PlanShare.Infrastructure.Security.Cryptography;
 using PlanShare.Infrastructure.Security.Tokens.Access.Generator;
 using PlanShare.Infrastructure.Security.Tokens.Access.Validator;
+using PlanShare.Infrastructure.Security.Tokens.Refresh;
 using PlanShare.Infrastructure.Services.LoggedUser;
 using System.Reflection;
 
 namespace PlanShare.Infrastructure;
 public static class DependencyInjectionExtension
 {
-    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
-        AddRepositories(services);
+        AddRepositories(services, environment);
         AddLoggedUser(services);
         AddTokenHandlers(services, configuration);
         AddPasswordEncripter(services);
-        AddDbContext(services, configuration);
-        AddFluentMigrator(services, configuration);
+
+        if (environment.IsTests().IsFalse())
+        {
+            AddDbContext(services, configuration);
+            AddFluentMigrator(services, configuration);
+        }
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -42,7 +49,7 @@ public static class DependencyInjectionExtension
         });
     }
 
-    private static void AddRepositories(IServiceCollection services)
+    private static void AddRepositories(IServiceCollection services, IWebHostEnvironment environment)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -57,7 +64,9 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPersonAssociationReadOnlyRepository, PersonAssociationRepository>();
 
         services.AddScoped<IRefreshTokenReadOnlyRepository, RefreshTokenRepository>();
-        services.AddScoped<IRefreshTokenWriteOnlyRepository, RefreshTokenRepository>();
+
+        if (environment.IsTests().IsFalse())
+            services.AddScoped<IRefreshTokenWriteOnlyRepository, RefreshTokenRepository>();
     }
 
     private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
@@ -71,6 +80,8 @@ public static class DependencyInjectionExtension
     {
         var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpiresMinutes");
         var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey")!;
+
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
 
         services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey));
         services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey));

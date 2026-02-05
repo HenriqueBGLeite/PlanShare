@@ -5,54 +5,48 @@ using PlanShare.Communication.Requests;
 using PlanShare.Communication.Responses;
 using PlanShare.Domain.Extensions;
 using PlanShare.Domain.Repositories;
+using PlanShare.Domain.Repositories.RefreshToken;
 using PlanShare.Domain.Repositories.User;
 using PlanShare.Domain.Security.Cryptography;
 using PlanShare.Exceptions;
 using PlanShare.Exceptions.ExceptionsBase;
 
 namespace PlanShare.Application.UseCases.User.Register;
-public class RegisterUserUseCase : IRegisterUserUseCase
-{
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IUserReadOnlyRepository _userReadOnlyRepository;
-    private readonly IUserWriteOnlyRepository _repository;
-    private readonly IPasswordEncripter _passwordEncripter;
-    private readonly ITokenService _tokenService;
-
-    public RegisterUserUseCase(
-        IUnitOfWork unitOfWork,
+public class RegisterUserUseCase(IUnitOfWork unitOfWork,
         IUserWriteOnlyRepository repository,
         IUserReadOnlyRepository userReadOnlyRepository,
         IPasswordEncripter passwordEncripter,
-        ITokenService tokenService)
-    {
-        _unitOfWork = unitOfWork;
-        _userReadOnlyRepository = userReadOnlyRepository;
-        _repository = repository;
-        _passwordEncripter = passwordEncripter;
-        _tokenService = tokenService;
-    }
-
+        ITokenService tokenService,
+        IRefreshTokenWriteOnlyRepository refreshTokenRepository) : IRegisterUserUseCase
+{
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         await Validate(request);
 
         var user = request.Adapt<Domain.Entities.User>();
-        user.Password = _passwordEncripter.Encrypt(request.Password);
+        user.Password = passwordEncripter.Encrypt(request.Password);
 
-        await _repository.Add(user);
+        var tokens = tokenService.GenerateTokens(user);
 
-        await _unitOfWork.Commit();
+        await repository.Add(user);
 
-        var tokens = await _tokenService.GenerateTokens(user);
+        await refreshTokenRepository.Add(new Domain.Entities.RefreshToken
+        {
+            UserId = user.Id,
+            Token = tokens.Refresh,
+            AccessTokenId = tokens.AccessTokenId
+        });
+
+        await unitOfWork.Commit();
 
         return new()
         {
             Id = user.Id,
             Name = user.Name,
-            Tokens = new()
+            Tokens = new ResponseTokensJson
             {
-                AccessToken = tokens.Access
+                AccessToken = tokens.Access,
+                RefreshToken = tokens.Refresh
             }
         };
     }
@@ -61,7 +55,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     {
         var result = new RegisterUserValidator().Validate(request);
 
-        var emailExist = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
+        var emailExist = await userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
         if (emailExist)
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
 

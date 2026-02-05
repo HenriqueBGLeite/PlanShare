@@ -20,4 +20,7 @@ internal class RefreshTokenRepository(PlanShareDbContext context) : IRefreshToke
         .AsNoTracking()
         .Include(refreshToken => refreshToken.User)
         .FirstOrDefaultAsync(refreshToken => refreshToken.Token.Equals(token));
+
+    public async Task<bool> HasRefreshTokenAssociated(User user, Guid accessTokenId) => await context.RefreshTokens
+        .AnyAsync(refreshToken => refreshToken.UserId == user.Id && refreshToken.AccessTokenId == accessTokenId);
 }

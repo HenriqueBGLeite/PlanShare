@@ -3,6 +3,7 @@ using PlanShare.Application.Services.Authentication;
 using PlanShare.Application.Services.Mappings;
 using PlanShare.Application.UseCases.Dashboard;
 using PlanShare.Application.UseCases.Login.DoLogin;
+using PlanShare.Application.UseCases.Token.RefreshToken;
 using PlanShare.Application.UseCases.User.ChangePassword;
 using PlanShare.Application.UseCases.User.Photo;
 using PlanShare.Application.UseCases.User.Profile;
@@ -46,7 +47,14 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetAllWorkItemUseCase, GetAllWorkItemUseCase>();
 
         services.AddScoped<IGetDashboardUseCase, GetDashboardUseCase>();
+
+        services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
     }
 
-    private static void AddTokenService(IServiceCollection services) => services.AddScoped<ITokenService, TokenService>();
+    private static void AddTokenService(IServiceCollection services)
+    {
+        services.AddOptions<TokenSettings>().BindConfiguration("Settings:RefreshToken");
+
+        services.AddScoped<ITokenService, TokenService>();
+    }
 }

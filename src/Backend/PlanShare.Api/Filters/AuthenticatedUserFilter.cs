@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using PlanShare.Communication.Responses;
+using PlanShare.Domain.Extensions;
+using PlanShare.Domain.Repositories.RefreshToken;
 using PlanShare.Domain.Repositories.User;
 using PlanShare.Domain.Security.Tokens;
 using PlanShare.Exceptions;
@@ -9,7 +11,9 @@ using PlanShare.Exceptions.ExceptionsBase;
 
 namespace PlanShare.Api.Filters;
 
-public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator, IUserReadOnlyRepository userReadOnlyRepository) : IAsyncAuthorizationFilter
+public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator, 
+    IUserReadOnlyRepository userReadOnlyRepository,
+    IRefreshTokenReadOnlyRepository refreshTokenRepository) : IAsyncAuthorizationFilter
 {
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
@@ -23,6 +27,11 @@ public class AuthenticatedUserFilter(IAccessTokenValidator accessTokenValidator,
 
             var user = await userReadOnlyRepository.GetById(userIdentifier);
             if (user is null)
+                throw new UnauthorizedException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+
+            var accessTokenId = accessTokenValidator.GetAccessTokenIdentifier(token);
+            var existRefreshTokenAssociated = await refreshTokenRepository.HasRefreshTokenAssociated(user, accessTokenId);
+            if (existRefreshTokenAssociated.IsFalse())
                 throw new UnauthorizedException(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
         }
         catch (SecurityTokenExpiredException)

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using PlanShare.Api.Converters;
 using PlanShare.Api.Filters;
@@ -51,7 +50,7 @@ builder.Services.AddSwaggerGen(config =>
 });
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
