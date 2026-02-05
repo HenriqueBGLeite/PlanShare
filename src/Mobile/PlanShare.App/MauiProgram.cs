@@ -8,16 +8,20 @@ using PlanShare.App.Data.Storage.SecureStorage.Tokens;
 using PlanShare.App.Navigation;
 using PlanShare.App.Resources.Styles.Handlers;
 using PlanShare.App.UseCases.Login.DoLogin;
+using PlanShare.App.UseCases.User.ChangePassword;
 using PlanShare.App.UseCases.User.Profile;
 using PlanShare.App.UseCases.User.Register;
+using PlanShare.App.UseCases.User.Update;
 using PlanShare.App.ViewModels.Pages.Dashboard;
 using PlanShare.App.ViewModels.Pages.Errors;
 using PlanShare.App.ViewModels.Pages.Login.DoLogin;
 using PlanShare.App.ViewModels.Pages.OnBoarding;
+using PlanShare.App.ViewModels.Pages.User.ChangePassword;
 using PlanShare.App.ViewModels.Pages.User.Profile;
 using PlanShare.App.ViewModels.Pages.User.Register;
 using PlanShare.App.Views.Pages.Errors;
 using PlanShare.App.Views.Pages.Login.DoLogin;
+using PlanShare.App.Views.Pages.User.ChangePassword;
 using PlanShare.App.Views.Pages.User.Profile;
 using PlanShare.App.Views.Pages.User.Register;
 using Refit;
@@ -65,8 +69,10 @@ public static class MauiProgram
         appBuilder.Services.AddTransientWithShellRoute<ErrorsPage, ErrorsViewModel>(RoutePages.ERROR_PAGE);
 
         appBuilder.Services.AddTransientWithShellRoute<DoLoginPage, DoLoginViewModel>(RoutePages.DO_LOGIN_PAGE);
+
         appBuilder.Services.AddTransientWithShellRoute<RegisterUserAccountPage, RegisterUserAccountViewModel>(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<UserProfilePage, UserProfileViewModel>(RoutePages.USER_UPDATE_PROFILE_PAGE);
+        appBuilder.Services.AddTransientWithShellRoute<ChangeUserPasswordPage, ChangeUserPasswordViewModel>(RoutePages.USER_CHANGE_PASSWORD_PAGE);
 
         return appBuilder;
     }
@@ -111,6 +117,8 @@ public static class MauiProgram
         appBuilder.Services.AddTransient<IRegisterUserUseCase, RegisterUserUseCase>();
         appBuilder.Services.AddTransient<IDoLoginUseCase, DoLoginUseCase>();
         appBuilder.Services.AddTransient<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        appBuilder.Services.AddTransient<IUpdateUserUseCase, UpdateUserUseCase>();
+        appBuilder.Services.AddTransient<IChangeUserPasswordUseCase, ChangeUserPasswordUseCase>();
 
         return appBuilder;
     }

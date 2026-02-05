@@ -3,6 +3,7 @@
     x:Class="PlanShare.App.Views.Pages.User.Profile.UserProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animationComponent="clr-namespace:PlanShare.App.Views.Components.StatusPage"
     xmlns:converters="clr-namespace:PlanShare.App.Converters"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
     xmlns:inputsComponent="clr-namespace:PlanShare.App.Views.Components.Inputs"
@@ -21,7 +22,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding Path=BindingContext.InitializeCommand, Source={Reference PageUserProfile}}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout>
+    <Grid>
         <VerticalStackLayout IsVisible="False">
             <VerticalStackLayout.Triggers>
                 <DataTrigger
@@ -81,9 +82,15 @@
                 Margin="0,70,0,25"
                 ColumnDefinitions="*,*"
                 ColumnSpacing="20">
-                <Button Style="{StaticResource SecondaryButtonStyle}" Text="{Static resourceFile:ResourceTexts.CHANGE_PASSWORD}" />
+                <Button
+                    Command="{Binding ChangePasswordCommand}"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Text="{Static resourceFile:ResourceTexts.CHANGE_PASSWORD}" />
 
-                <Button Grid.Column="1" Text="{Static resourceFile:ResourceTexts.UPDATE_PROFILE}" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding UpdateProfileCommand}"
+                    Text="{Static resourceFile:ResourceTexts.UPDATE_PROFILE}" />
             </Grid>
 
             <Button
@@ -131,5 +138,19 @@
 
             <skeleton:EntryAndLabelComponent Title="{Static resourceFile:ResourceTexts.TITLE_EMAIL}" />
         </VerticalStackLayout>
-    </VerticalStackLayout>
+
+        <animationComponent:AnimationSendInformationComponent
+            HorizontalOptions="Center"
+            IsVisible="False"
+            VerticalOptions="Center">
+            <animationComponent:AnimationSendInformationComponent.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="animationComponent:AnimationSendInformationComponent"
+                    Value="{Static models:StatusPage.Sending}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </animationComponent:AnimationSendInformationComponent.Triggers>
+        </animationComponent:AnimationSendInformationComponent>
+    </Grid>
 </ContentPage>

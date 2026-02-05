@@ -11,7 +11,7 @@
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.User.Register"
     x:DataType="viewModel:RegisterUserAccountViewModel">
 
-    <VerticalStackLayout>
+    <Grid>
         <VerticalStackLayout IsVisible="False" Spacing="30">
             <VerticalStackLayout.Triggers>
                 <DataTrigger
@@ -83,6 +83,6 @@
                 </DataTrigger>
             </animationComponent:AnimationSendInformationComponent.Triggers>
         </animationComponent:AnimationSendInformationComponent>
-    </VerticalStackLayout>
+    </Grid>
 
 </ContentPage>
