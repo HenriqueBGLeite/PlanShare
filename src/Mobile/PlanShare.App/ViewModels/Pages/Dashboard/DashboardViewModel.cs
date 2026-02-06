@@ -18,6 +18,14 @@ public partial class DashboardViewModel(INavigationService navigationService, IU
     [RelayCommand]
     public async Task ConnectionByCode()
     {
-        var result = await _navigationService.ShowPopup<OptionsForConnectionByCodeViewModel, ChooseCodeConnectionOption>();
+        var optionSelected = await _navigationService.ShowPopup<OptionsForConnectionByCodeViewModel, ChooseCodeConnectionOption>();
+        switch (optionSelected)
+        {
+            case ChooseCodeConnectionOption.GenerateCode:
+                {
+                    await _navigationService.GoToAsync(RoutePages.USER_CONNECTION_GENERATOR_PAGE);
+                }
+                break;
+        }
     }
 }

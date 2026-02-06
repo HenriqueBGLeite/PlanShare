@@ -18,7 +18,7 @@
         <converters:NameToAvatarNameConverter x:Key="nameToAvatarName" />
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="40">
         <Grid Margin="0,40,0,0" ColumnDefinitions="62, *, 40, 40">
             <toolkit:AvatarView
                 BackgroundColor="{AppThemeBinding Light={StaticResource AVATAR_COLOR_LIGHT},
@@ -77,6 +77,18 @@
             </Image>
         </Grid>
 
-        <Button Command="{Binding ConnectionByCodeCommand}" Text="Add" />
+        <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.TASKS_SHARED_WITH}" />
+
+        <Button
+            Margin="0,-20,0,0"
+            BackgroundColor="Transparent"
+            BorderColor="Black"
+            BorderWidth="2"
+            Command="{Binding ConnectionByCodeCommand}"
+            CornerRadius="20"
+            FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+            HeightRequest="40"
+            Text="Add"
+            TextColor="Black" />
     </VerticalStackLayout>
 </ContentPage>

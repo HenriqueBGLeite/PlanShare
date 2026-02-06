@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PlanShare.App.Views.Pages.User.Connection.UserConnectionGeneratorPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:models="clr-namespace:PlanShare.App.Models"
+    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
+    xmlns:skeletonLoading="clr-namespace:PlanShare.App.Views.Components.Skeletons"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.User.Connection"
+    x:Name="PageUserConnectionGenerator"
+    x:DataType="viewModel:UserConnectionGeneratorViewModel"
+    Shell.NavBarIsVisible="False">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding Path=BindingContext.InitializeCommand, Source={Reference PageUserConnectionGenerator}}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout>
+        <Image
+            Margin="0,40,0,50"
+            HorizontalOptions="Center"
+            Source="sweetcat.png" />
+
+        <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.TITLE_SHARE_TASK}" />
+
+        <Label Margin="0,0,0,30" Text="{Static resourceFile:ResourceTexts.SUBTITLE_CONNECTION_BY_CODE}" />
+
+        <skeletonLoading:SkeletonView
+            HeightRequest="80"
+            CornerRadius="10"
+            IsVisible="False"
+            WidthRequest="250">
+            <skeletonLoading:SkeletonView.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="skeletonLoading:SkeletonView"
+                    Value="{Static models:ConnectionByCodeStatusPage.GeneratingCode}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </skeletonLoading:SkeletonView.Triggers>
+        </skeletonLoading:SkeletonView>
+
+        <Label
+            FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+            FontSize="60"
+            HorizontalOptions="Center"
+            IsVisible="False"
+            CharacterSpacing="1"
+            Text="{Binding ConnectionCode}">
+            <Label.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="Label"
+                    Value="{Static models:ConnectionByCodeStatusPage.WaitingForJoiner}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+
+        <BoxView
+            Margin="0,40,0,70"
+            HeightRequest="1"
+            Color="{AppThemeBinding Light={StaticResource LINES_COLOR_LIGHT},
+                                    Dark={StaticResource LINES_COLOR_DARK}}" />
+
+        <Button
+            Command="{Binding CancelCommand}"
+            Style="{StaticResource DangerousButtonStyle}"
+            Text="{Static resourceFile:ResourceTexts.TITLE_CANCEL_OPERATION}" />
+    </VerticalStackLayout>
+</ContentPage>

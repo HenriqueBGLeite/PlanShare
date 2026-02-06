@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using PlanShare.App.Constants;
 using PlanShare.App.Data.Network;
 using PlanShare.App.Data.Network.Api;
+using PlanShare.App.Data.Network.Hubs;
 using PlanShare.App.Data.Storage.Preferences.User;
 using PlanShare.App.Data.Storage.SecureStorage.Tokens;
 using PlanShare.App.Navigation;
@@ -19,6 +20,7 @@ using PlanShare.App.ViewModels.Pages.Errors;
 using PlanShare.App.ViewModels.Pages.Login.DoLogin;
 using PlanShare.App.ViewModels.Pages.OnBoarding;
 using PlanShare.App.ViewModels.Pages.User.ChangePassword;
+using PlanShare.App.ViewModels.Pages.User.Connection;
 using PlanShare.App.ViewModels.Pages.User.Profile;
 using PlanShare.App.ViewModels.Pages.User.Register;
 using PlanShare.App.ViewModels.Popups.Connection;
@@ -26,6 +28,7 @@ using PlanShare.App.ViewModels.Popups.File;
 using PlanShare.App.Views.Pages.Errors;
 using PlanShare.App.Views.Pages.Login.DoLogin;
 using PlanShare.App.Views.Pages.User.ChangePassword;
+using PlanShare.App.Views.Pages.User.Connection;
 using PlanShare.App.Views.Pages.User.Profile;
 using PlanShare.App.Views.Pages.User.Register;
 using PlanShare.App.Views.Popups.Connection;
@@ -81,6 +84,7 @@ public static class MauiProgram
         appBuilder.Services.AddTransientWithShellRoute<RegisterUserAccountPage, RegisterUserAccountViewModel>(RoutePages.USER_REGISTER_ACCOUNT_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<UserProfilePage, UserProfileViewModel>(RoutePages.USER_UPDATE_PROFILE_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<ChangeUserPasswordPage, ChangeUserPasswordViewModel>(RoutePages.USER_CHANGE_PASSWORD_PAGE);
+        appBuilder.Services.AddTransientWithShellRoute<UserConnectionGeneratorPage, UserConnectionGeneratorViewModel>(RoutePages.USER_CONNECTION_GENERATOR_PAGE);
 
         return appBuilder;
     }
@@ -127,6 +131,11 @@ public static class MauiProgram
 
         appBuilder.Services.AddRefitClient<IAuthenticationApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiUrl));
+
+        appBuilder.Services.AddTransient<IUserConnectionByCodeClient>(config =>
+        {
+            return new UserConnectionByCodeClient(apiUrl, config.GetRequiredService<ITokensStorage>());
+        });
 
         return appBuilder;
     }

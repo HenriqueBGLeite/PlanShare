@@ -9,7 +9,7 @@
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Popups.File"
     x:DataType="viewModel:OptionsForProfilePhotoViewModel"
     BackgroundColor="{AppThemeBinding Light={StaticResource POPUP_OVERLAY_COLOR_LIGHT},
-                              Dark={StaticResource POPUP_OVERLAY_COLOR_DARK}}"
+                                      Dark={StaticResource POPUP_OVERLAY_COLOR_DARK}}"
     VerticalOptions="End">
     <VerticalStackLayout Spacing="10">
         <Border
