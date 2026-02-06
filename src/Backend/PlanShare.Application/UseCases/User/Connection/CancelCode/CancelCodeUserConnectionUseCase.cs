@@ -8,10 +8,10 @@ namespace PlanShare.Application.UseCases.User.Connection.CancelCode;
 
 public class CancelCodeUserConnectionUseCase(ILoggedUser loggedUser) : ICancelCodeUserConnectionUseCase
 {
-    public async Task<HubOperationResult<string>> Execute(UserConnectionsDto userConnections)
+    public async Task<HubOperationResult<string>> Execute(ConnectionByCodeDto connectionByCode)
     {
         var userLogged = await loggedUser.Get();
-        if (userLogged.Id != userConnections.UserId)
+        if (userLogged.Id != connectionByCode.Generator.Id)
             return HubOperationResult<string>.Failure(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE, UserConnectionErrorCode.NotAuthorized);
 
         return HubOperationResult<string>.Success(string.Empty);

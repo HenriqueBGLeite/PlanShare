@@ -7,7 +7,7 @@ using PlanShare.Exceptions;
 
 namespace PlanShare.Api.Filters;
 
-public class UserConnectionsExceptionHubFilter(CodeConnectionService codeConnectionService) : IHubFilter
+public class UserConnectionsExceptionHubFilter(UserConnectionsService codeConnectionService) : IHubFilter
 {
     public async ValueTask<object?> InvokeMethodAsync(HubInvocationContext invocationContext, Func<HubInvocationContext, ValueTask<object?>> next)
     {
@@ -19,14 +19,12 @@ public class UserConnectionsExceptionHubFilter(CodeConnectionService codeConnect
         {
             var connectionId = invocationContext.Hub.Context.ConnectionId;
 
-            var code = codeConnectionService.GetCodeByConnectionId(connectionId);
+            var code = codeConnectionService.RemoveCodeByConnectionId(connectionId);
             if (code.NotEmpty())
             {
-                var connection = codeConnectionService.RemoveConnection(code);
-                if (connection is not null && connection.ConnectingUserConnectionId.NotEmpty())
-                {
-                    await invocationContext.Hub.Clients.Client(connection.ConnectingUserConnectionId).SendAsync("ConnectionErrorOccurred");
-                }
+                var connection = codeConnectionService.RemoveConnectionByCode(code);
+                if (connection is not null && connection.JoinerConnectionId.NotEmpty())
+                    await invocationContext.Hub.Clients.Client(connection.JoinerConnectionId).SendAsync("ConnectionErrorOccurred");
             }
 
             return HubOperationResult<string>.Failure(ResourceMessagesException.UNKNOWN_ERROR, UserConnectionErrorCode.Unknown);

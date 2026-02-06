@@ -11,7 +11,7 @@ using PlanShare.Exceptions;
 
 namespace PlanShare.Api.Hubs;
 
-public class UserConnectionsHub(CodeConnectionService codeConnectionService, 
+public class UserConnectionsHub(UserConnectionsService codeConnectionService, 
     IGenerateCodeUserConnectionUseCase generateCodeUserConnectionUseCase,
     IJoinWithCodeUseCase joinWithCodeUseCase,
     IApproveCodeUserConnectionUseCase approveCodeUserConnectionUseCase,
@@ -19,11 +19,11 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
 {
     public async Task<HubOperationResult<string>> GenerateCode()
     {
-        var codeUserConnectionDto = await generateCodeUserConnectionUseCase.Execute();
+        var (code, generator) = await generateCodeUserConnectionUseCase.Execute();
 
-        codeConnectionService.Start(codeUserConnectionDto, Context.ConnectionId);
+        codeConnectionService.Start(code, generator, Context.ConnectionId);
 
-        return HubOperationResult<string>.Success(codeUserConnectionDto.Code);
+        return HubOperationResult<string>.Success(code);
     }
 
     public async Task<HubOperationResult<string>> JoinWithCode(string code)
@@ -32,25 +32,28 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
         if (userConnections is null)
             return HubOperationResult<string>.Failure(ResourceMessagesException.PROVIDED_CODE_DOES_NOT_EXIST, UserConnectionErrorCode.InvalidCode);
 
-        var result = await joinWithCodeUseCase.Execute(userConnections.UserId);
+        if (userConnections.Joiner is not null)
+            return HubOperationResult<string>.Failure(ResourceMessagesException.CODE_ALREADY_LINKED_ANOTHER_CONNECTION, UserConnectionErrorCode.InvalidCode);
+
+        var result = await joinWithCodeUseCase.Execute(userConnections.Generator);
         if (result.IsSuccess.IsFalse())
             return HubOperationResult<string>.Failure(result.ErrorMessage, result.ErrorCode!.Value);
 
-        userConnections.ConnectingUserId = result.Response!.Connector.Id;
-        userConnections.ConnectingUserConnectionId = Context.ConnectionId;
+        userConnections.Joiner = result.Response;
+        userConnections.JoinerConnectionId = Context.ConnectionId;
 
-        await Clients.Client(userConnections.UserConnectionId).SendAsync("OnUserJoined", new ResponseConnectionUserJson 
+        await Clients.Client(userConnections.GeneratorConnectionId).SendAsync("OnUserJoined", new ResponseConnectionUserJson 
         { 
-            Name = result.Response.Connector.Name, 
-            ProfilePhotoUrl = result.Response.Connector.ProfilePhotoUrl 
+            Name = result.Response!.Name, 
+            ProfilePhotoUrl = result.Response.ProfilePhotoUrl 
         });
 
-        return HubOperationResult<string>.Success(result.Response.Generator.Name);
+        return HubOperationResult<string>.Success(userConnections.Generator.Name);
     }
 
     public async Task<HubOperationResult<string>> Cancel(string code)
     {
-        var userConnections = codeConnectionService.RemoveConnection(code);
+        var userConnections = codeConnectionService.RemoveConnectionByCode(code);
         if (userConnections is null)
             return HubOperationResult<string>.Failure(ResourceMessagesException.PROVIDED_CODE_DOES_NOT_EXIST, UserConnectionErrorCode.InvalidCode);
 
@@ -58,15 +61,17 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
         if (result.IsSuccess.IsFalse())
             return HubOperationResult<string>.Failure(result.ErrorMessage, result.ErrorCode!.Value);
 
-        if (userConnections.ConnectingUserId.HasValue)
-            await Clients.Client(userConnections.ConnectingUserConnectionId!).SendAsync("OnCancelled");
+        if (userConnections.JoinerConnectionId.NotEmpty())
+            await Clients.Client(userConnections.JoinerConnectionId!).SendAsync("OnCancelled");
+
+        codeConnectionService.RemoveCodeByConnectionId(Context.ConnectionId);
 
         return HubOperationResult<string>.Success(code);
     }
 
     public async Task<HubOperationResult<string>> ConfirmCodeJoin(string code)
     {
-        var userConnections = codeConnectionService.RemoveConnection(code);
+        var userConnections = codeConnectionService.RemoveConnectionByCode(code);
         if (userConnections is null)
             return HubOperationResult<string>.Failure(ResourceMessagesException.PROVIDED_CODE_DOES_NOT_EXIST, UserConnectionErrorCode.InvalidCode);
 
@@ -74,21 +79,21 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
         if (result.IsSuccess.IsFalse())
             return HubOperationResult<string>.Failure(result.ErrorMessage, result.ErrorCode!.Value);
 
-        await Clients.Client(userConnections.ConnectingUserConnectionId!).SendAsync("OnConnectionConfirmed");
+        await Clients.Client(userConnections.JoinerConnectionId!).SendAsync("OnConnectionConfirmed");
+
+        codeConnectionService.RemoveCodeByConnectionId(Context.ConnectionId);
 
         return HubOperationResult<string>.Success(code);
     }
 
     public override Task OnDisconnectedAsync(Exception? exception)
     {
-        var code = codeConnectionService.GetCodeByConnectionId(Context.ConnectionId);
+        var code = codeConnectionService.RemoveCodeByConnectionId(Context.ConnectionId);
         if (code.NotEmpty())
         {
-            var connection = codeConnectionService.RemoveConnection(code);
-            if (connection is not null && connection.ConnectingUserConnectionId.NotEmpty())
-            {
-                Clients.Client(connection.ConnectingUserConnectionId).SendAsync("OnUserDisconnected");
-            }
+            var connection = codeConnectionService.RemoveConnectionByCode(code);
+            if (connection is not null && connection.JoinerConnectionId.NotEmpty())
+                Clients.Client(connection.JoinerConnectionId).SendAsync("OnUserDisconnected");
         }
 
         return base.OnDisconnectedAsync(exception);

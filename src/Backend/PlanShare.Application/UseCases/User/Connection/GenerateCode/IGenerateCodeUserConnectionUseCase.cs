@@ -4,5 +4,5 @@ namespace PlanShare.Application.UseCases.User.Connection.GenerateCode;
 
 public interface IGenerateCodeUserConnectionUseCase
 {
-    Task<CodeUserConnectionDto> Execute();
+    Task<(string code, UserDto generator)> Execute();
 }
