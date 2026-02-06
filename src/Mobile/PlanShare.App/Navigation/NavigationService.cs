@@ -57,7 +57,7 @@ public class NavigationService(IPopupService popupService) : INavigationService
                 CornerRadius = new CornerRadius(10),
                 StrokeThickness = 0
             },
-            CanBeDismissedByTappingOutsideOfPopup = false,
+            CanBeDismissedByTappingOutsideOfPopup = false
         };
 
         var result = await popupService.ShowPopupAsync<TViewModel, TResult>(Shell.Current, popupOptions);

@@ -76,5 +76,7 @@
                 </Image.Behaviors>
             </Image>
         </Grid>
+
+        <Button Command="{Binding ConnectionByCodeCommand}" Text="Add" />
     </VerticalStackLayout>
 </ContentPage>
