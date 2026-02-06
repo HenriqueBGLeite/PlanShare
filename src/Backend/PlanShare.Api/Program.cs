@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using PlanShare.Api.Converters;
 using PlanShare.Api.Filters;
+using PlanShare.Api.Handlers;
+using PlanShare.Api.Handlers.Requirements;
+using PlanShare.Api.Hubs;
 using PlanShare.Api.Middleware;
 using PlanShare.Api.Token;
 using PlanShare.Application;
@@ -60,6 +64,15 @@ builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddScoped<IAuthorizationHandler, AuthenticatedUserHandler>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AuthenticatedUser", policy => policy.Requirements.Add(new AuthenticatedUserRequirement()));
+});
+
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -82,6 +95,8 @@ if (builder.Configuration.IsUnitTestEnviroment() == false)
 {
     await MigrateDatabase();
 }
+
+app.MapHub<UserConnectionsHub>("/connection").RequireAuthorization("AuthenticatedUser");
 
 app.Run();
 
