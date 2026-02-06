@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using PlanShare.Api.Hubs.Services;
+using PlanShare.Application.UseCases.User.Connection.ApproveCode;
 using PlanShare.Application.UseCases.User.Connection.GenerateCode;
 using PlanShare.Application.UseCases.User.Connection.JoinWithCode;
 using PlanShare.Communication.Responses;
@@ -8,7 +9,8 @@ namespace PlanShare.Api.Hubs;
 
 public class UserConnectionsHub(CodeConnectionService codeConnectionService, 
     IGenerateCodeUserConnectionUseCase generateCodeUserConnectionUseCase,
-    IJoinWithCodeUseCase joinWithCodeUseCase) : Hub
+    IJoinWithCodeUseCase joinWithCodeUseCase,
+    IApproveCodeUserConnectionUseCase approveCodeUserConnectionUseCase) : Hub
 {
     public async Task<string> GenerateCode()
     {
@@ -40,5 +42,14 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
         var connection = codeConnectionService.RemoveConnection(code);
         if (connection is not null && connection.ConnectingUserId.HasValue)
             await Clients.Client(connection.ConnectingUserConnectionId!).SendAsync("OnCancelled");
+    }
+
+    public async Task ConfirmCodeJoin(string code)
+    {
+        var connection = codeConnectionService.RemoveConnection(code);
+
+        await approveCodeUserConnectionUseCase.Execute(connection);
+
+        await Clients.Client(connection.ConnectingUserConnectionId!).SendAsync("OnConnectionConfirmed");
     }
 }

@@ -5,30 +5,19 @@ using PlanShare.Domain.Repositories.WorkItem;
 using PlanShare.Domain.Services.LoggedUser;
 
 namespace PlanShare.Application.UseCases.Dashboard;
-public class GetDashboardUseCase : IGetDashboardUseCase
+public class GetDashboardUseCase(ILoggedUser loggedUser, IWorkItemReadOnlyRepository workItemRepository, IUserConnectionReadOnlyRepository personAssociationRepository) : IGetDashboardUseCase
 {
-    private readonly ILoggedUser _loggedUser;
-    private readonly IWorkItemReadOnlyRepository _workItemRepository;
-    private readonly IUserConnectionReadOnlyRepository _personAssociationRepository;
-
-    public GetDashboardUseCase(ILoggedUser loggedUser, IWorkItemReadOnlyRepository workItemRepository, IUserConnectionReadOnlyRepository personAssociationRepository)
-    {
-        _loggedUser = loggedUser;
-        _workItemRepository = workItemRepository;
-        _personAssociationRepository = personAssociationRepository;
-    }
-
     public async Task<ResponseDashboardJson> Execute()
     {
-        var loggedUser = await _loggedUser.Get();
+        var userLogged = await loggedUser.Get();
 
-        var workItems = await _workItemRepository.GetAll(loggedUser);
-        var associations = await _personAssociationRepository.GetUserConnectionsForUser(loggedUser);
+        var workItems = await workItemRepository.GetAll(userLogged);
+        var connections = await personAssociationRepository.GetUserConnectionsForUser(userLogged);
 
         return new ResponseDashboardJson
         {
             WorkItems = workItems.Adapt<List<ResponseShortWorkItemJson>>(),
-            Friends = associations.Adapt<List<ResponseAssigneeJson>>()
+            Friends = connections.Adapt<List<ResponseAssigneeJson>>()
         };
     }
 }
