@@ -19,8 +19,6 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
 {
     public async Task<HubOperationResult<string>> GenerateCode()
     {
-        throw new Exception("Teste Exception");
-
         var codeUserConnectionDto = await generateCodeUserConnectionUseCase.Execute();
 
         codeConnectionService.Start(codeUserConnectionDto, Context.ConnectionId);
