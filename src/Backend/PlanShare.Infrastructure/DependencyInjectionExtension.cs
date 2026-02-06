@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PlanShare.Domain.Extensions;
 using PlanShare.Domain.Repositories;
-using PlanShare.Domain.Repositories.Association;
+using PlanShare.Domain.Repositories.Connection;
 using PlanShare.Domain.Repositories.RefreshToken;
 using PlanShare.Domain.Repositories.User;
 using PlanShare.Domain.Repositories.WorkItem;
@@ -61,7 +61,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IWorkItemReadOnlyRepository, WorkItemRepository>();
         services.AddScoped<IWorkItemUpdateOnlyRepository, WorkItemRepository>();
 
-        services.AddScoped<IPersonAssociationReadOnlyRepository, PersonAssociationRepository>();
+        services.AddScoped<IUserConnectionReadOnlyRepository, UserConnectionRepository>();
+        services.AddScoped<IUserConnectionWriteOnlyRepository, UserConnectionRepository>();
 
         services.AddScoped<IRefreshTokenReadOnlyRepository, RefreshTokenRepository>();
 
