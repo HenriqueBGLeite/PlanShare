@@ -19,6 +19,8 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
 {
     public async Task<HubOperationResult<string>> GenerateCode()
     {
+        throw new Exception("Teste Exception");
+
         var codeUserConnectionDto = await generateCodeUserConnectionUseCase.Execute();
 
         codeConnectionService.Start(codeUserConnectionDto, Context.ConnectionId);
@@ -77,5 +79,20 @@ public class UserConnectionsHub(CodeConnectionService codeConnectionService,
         await Clients.Client(userConnections.ConnectingUserConnectionId!).SendAsync("OnConnectionConfirmed");
 
         return HubOperationResult<string>.Success(code);
+    }
+
+    public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        var code = codeConnectionService.GetCodeByConnectionId(Context.ConnectionId);
+        if (code.NotEmpty())
+        {
+            var connection = codeConnectionService.RemoveConnection(code);
+            if (connection is not null && connection.ConnectingUserConnectionId.NotEmpty())
+            {
+                Clients.Client(connection.ConnectingUserConnectionId).SendAsync("OnUserDisconnected");
+            }
+        }
+
+        return base.OnDisconnectedAsync(exception);
     }
 }
