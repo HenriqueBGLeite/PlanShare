@@ -85,6 +85,7 @@ public static class MauiProgram
         appBuilder.Services.AddTransientWithShellRoute<UserProfilePage, UserProfileViewModel>(RoutePages.USER_UPDATE_PROFILE_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<ChangeUserPasswordPage, ChangeUserPasswordViewModel>(RoutePages.USER_CHANGE_PASSWORD_PAGE);
         appBuilder.Services.AddTransientWithShellRoute<UserConnectionGeneratorPage, UserConnectionGeneratorViewModel>(RoutePages.USER_CONNECTION_GENERATOR_PAGE);
+        appBuilder.Services.AddTransientWithShellRoute<UserCodeConnectionPage, UserCodeConnectionViewModel>(RoutePages.USER_CODE_CONNECTION_PAGE);
 
         return appBuilder;
     }

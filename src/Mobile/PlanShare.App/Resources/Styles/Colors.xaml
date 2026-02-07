@@ -32,7 +32,7 @@
     <Color x:Key="PLACEHOLDER_COLOR_DARK">#33FFFFFF</Color>
 
     <Color x:Key="KEYBOARD_COLOR_LIGHT">#BEBEBE</Color>
-    <Color x:Key="KEYBOARD_COLOR_DARK">#AEA8D3</Color>
+    <Color x:Key="KEYBOARD_COLOR_DARK">#4DA6FF</Color>
 
     <Color x:Key="POPUP_OVERLAY_COLOR_LIGHT">#B3B3B3</Color>
     <Color x:Key="POPUP_OVERLAY_COLOR_DARK">#2A2A2D</Color>
