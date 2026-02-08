@@ -13,7 +13,6 @@ namespace PlanShare.App.ViewModels.Pages.User.Connection;
 public partial class UserConnectionGeneratorViewModel : ViewModelBase
 {
     private readonly HubConnection _connection;
-    private readonly IUseRefreshTokenUseCase _useRefreshTokenUseCase;
 
     [ObservableProperty]
     public new partial ConnectionByCodeStatusPage StatusPage { get; set; }
@@ -25,11 +24,9 @@ public partial class UserConnectionGeneratorViewModel : ViewModelBase
     public partial JoinerUser JoinerUser { get; set; } = new();
 
     public UserConnectionGeneratorViewModel(INavigationService navigationService,
-    IUseRefreshTokenUseCase useRefreshTokenUseCase,
     IUserConnectionByCodeClient userConnectionByCodeClient) : base(navigationService)
     {
         _connection = userConnectionByCodeClient.CreateClient();
-        _useRefreshTokenUseCase = useRefreshTokenUseCase;
 
         _connection.On<ResponseConnectionUserJson>("OnUserJoined", OnUserJoined);
     }
@@ -38,9 +35,6 @@ public partial class UserConnectionGeneratorViewModel : ViewModelBase
     public async Task Initialize()
     {
         StatusPage = ConnectionByCodeStatusPage.GeneratingCode;
-
-        //Codigo temporário
-        await _useRefreshTokenUseCase.Execute();
 
         await _connection.StartAsync();
 

@@ -5,90 +5,263 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:PlanShare.App.Converters"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:models="clr-namespace:PlanShare.App.Models"
     xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
+    xmlns:skeleton="clr-namespace:PlanShare.App.Views.Components.Skeletons"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.Dashboard"
+    x:Name="PageDashboard"
     x:DataType="viewModel:DashboardViewModel"
     Shell.NavBarIsVisible="False">
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{AppThemeBinding Light={StaticResource PAGE_BACKGROUND_COLOR_LIGHT}, Dark={StaticResource PAGE_BACKGROUND_COLOR_DARK}}" StatusBarStyle="{AppThemeBinding Light=DarkContent, Dark=LightContent}" />
+        <toolkit:EventToCommandBehavior Command="{Binding Path=BindingContext.InitializeCommand, Source={Reference PageDashboard}}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
         <converters:NameToAvatarNameConverter x:Key="nameToAvatarName" />
     </ContentPage.Resources>
 
-    <VerticalStackLayout Spacing="40">
-        <Grid Margin="0,40,0,0" ColumnDefinitions="62, *, 40, 40">
-            <toolkit:AvatarView
-                BackgroundColor="{AppThemeBinding Light={StaticResource AVATAR_COLOR_LIGHT},
-                                                  Dark={StaticResource AVATAR_COLOR_DARK}}"
-                BorderWidth="0"
-                CornerRadius="31"
-                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
-                FontSize="18"
-                HeightRequest="62"
-                Text="{Binding UserName, Converter={StaticResource nameToAvatarName}}"
-                TextColor="{AppThemeBinding Light={StaticResource SECONDARY_COLOR_LIGHT},
-                                            Dark={StaticResource SECONDARY_COLOR_DARK}}"
-                WidthRequest="62">
-                <toolkit:AvatarView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SeeProfileCommand}" />
-                </toolkit:AvatarView.GestureRecognizers>
-            </toolkit:AvatarView>
+    <Grid>
+        <VerticalStackLayout IsVisible="False">
+            <VerticalStackLayout.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="VerticalStackLayout"
+                    Value="{Static models:StatusPage.Default}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </VerticalStackLayout.Triggers>
 
-            <VerticalStackLayout
-                Grid.Column="1"
-                Margin="16,0,0,0"
-                VerticalOptions="Center">
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SeeProfileCommand}" />
-                </VerticalStackLayout.GestureRecognizers>
-
-                <Label
-                    FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_REGULAR}"
-                    FontSize="10"
-                    Text="{Static resourceFile:ResourceTexts.TITLE_WELCOME}" />
-                <Label
+            <Grid Margin="0,40,0,0" ColumnDefinitions="62, *, 40, 40">
+                <toolkit:AvatarView
+                    BackgroundColor="{AppThemeBinding Light={StaticResource AVATAR_COLOR_LIGHT},
+                                                      Dark={StaticResource AVATAR_COLOR_DARK}}"
+                    BorderWidth="0"
+                    CornerRadius="31"
                     FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
-                    FontSize="16"
-                    Text="{Binding UserName}" />
-            </VerticalStackLayout>
+                    FontSize="18"
+                    HeightRequest="62"
+                    Text="{Binding Dashboard.UserName, Converter={StaticResource nameToAvatarName}}"
+                    TextColor="{AppThemeBinding Light={StaticResource SECONDARY_COLOR_LIGHT},
+                                                Dark={StaticResource SECONDARY_COLOR_DARK}}"
+                    WidthRequest="62">
+                    <toolkit:AvatarView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeeProfileCommand}" />
+                    </toolkit:AvatarView.GestureRecognizers>
+                </toolkit:AvatarView>
 
-            <Image
-                Grid.Column="2"
-                HeightRequest="20"
-                Rotation="15"
-                Source="icon_bell.png"
-                WidthRequest="20">
-                <Image.Behaviors>
-                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
-                </Image.Behaviors>
-            </Image>
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Margin="16,0,0,0"
+                    VerticalOptions="Center">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeeProfileCommand}" />
+                    </VerticalStackLayout.GestureRecognizers>
 
-            <Image
-                Grid.Column="3"
-                HeightRequest="20"
-                Source="icon_gear.png"
-                WidthRequest="20">
-                <Image.Behaviors>
-                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
-                </Image.Behaviors>
-            </Image>
-        </Grid>
+                    <Label
+                        FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_REGULAR}"
+                        FontSize="10"
+                        Text="{Static resourceFile:ResourceTexts.TITLE_WELCOME}" />
+                    <Label
+                        FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                        FontSize="16"
+                        Text="{Binding Dashboard.UserName}" />
+                </VerticalStackLayout>
 
-        <Label FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}" Text="{Static resourceFile:ResourceTexts.TASKS_SHARED_WITH}" />
+                <Image
+                    Grid.Column="2"
+                    HeightRequest="20"
+                    Rotation="15"
+                    Source="icon_bell.png"
+                    WidthRequest="20">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
+                    </Image.Behaviors>
+                </Image>
 
-        <Button
-            Margin="0,-20,0,0"
-            BackgroundColor="Transparent"
-            BorderColor="Black"
-            BorderWidth="2"
-            Command="{Binding ConnectionByCodeCommand}"
-            CornerRadius="20"
-            FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
-            HeightRequest="40"
-            Text="Add"
-            TextColor="Black" />
-    </VerticalStackLayout>
+                <Image
+                    Grid.Column="3"
+                    HeightRequest="20"
+                    Source="icon_gear.png"
+                    WidthRequest="20">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+
+            <Label
+                Margin="0,40,0,20"
+                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                Text="{Static resourceFile:ResourceTexts.TASKS_SHARED_WITH}" />
+
+            <CollectionView HorizontalScrollBarVisibility="Never" ItemsSource="{Binding Dashboard.ConnectedUsers}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.ConnectionByCodeCommand, Source={Reference PageDashboard}}" />
+                            </VerticalStackLayout.GestureRecognizers>
+
+                            <Image
+                                HeightRequest="50"
+                                Source="icon_add.png"
+                                WidthRequest="50">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label
+                                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Add" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ConnectedUser">
+                        <VerticalStackLayout>
+                            <toolkit:AvatarView
+                                BackgroundColor="{AppThemeBinding Light={StaticResource AVATAR_COLOR_LIGHT},
+                                                                  Dark={StaticResource AVATAR_COLOR_DARK}}"
+                                BorderWidth="0"
+                                CornerRadius="25"
+                                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                                FontSize="14"
+                                HeightRequest="50"
+                                Text="{Binding Name, Converter={StaticResource nameToAvatarName}}"
+                                TextColor="{AppThemeBinding Light={StaticResource SECONDARY_COLOR_LIGHT},
+                                                            Dark={StaticResource SECONDARY_COLOR_DARK}}"
+                                WidthRequest="50" />
+
+                            <Label
+                                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_REGULAR}"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="{Binding Name}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout IsVisible="False">
+            <VerticalStackLayout.Triggers>
+                <DataTrigger
+                    Binding="{Binding StatusPage}"
+                    TargetType="VerticalStackLayout"
+                    Value="{Static models:StatusPage.Loading}">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </VerticalStackLayout.Triggers>
+
+            <Grid Margin="0,40,0,0" ColumnDefinitions="62, *, 40, 40">
+
+                <skeleton:SkeletonView
+                    CornerRadius="31"
+                    HeightRequest="62"
+                    WidthRequest="62" />
+
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Margin="16,0,0,0"
+                    Spacing="3"
+                    VerticalOptions="Center">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeeProfileCommand}" />
+                    </VerticalStackLayout.GestureRecognizers>
+
+                    <Label
+                        FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_REGULAR}"
+                        FontSize="10"
+                        Text="{Static resourceFile:ResourceTexts.TITLE_WELCOME}" />
+
+                    <skeleton:SkeletonView CornerRadius="6" HeightRequest="19" />
+                </VerticalStackLayout>
+
+                <Image
+                    Grid.Column="2"
+                    HeightRequest="20"
+                    Rotation="15"
+                    Source="icon_bell.png"
+                    WidthRequest="20">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
+                    </Image.Behaviors>
+                </Image>
+
+                <Image
+                    Grid.Column="3"
+                    HeightRequest="20"
+                    Source="icon_gear.png"
+                    WidthRequest="20">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+
+            <Label
+                Margin="0,40,0,20"
+                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                Text="{Static resourceFile:ResourceTexts.TASKS_SHARED_WITH}" />
+
+            <CollectionView HorizontalScrollBarVisibility="Never">
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>1</x:String>
+                        <x:String>2</x:String>
+                        <x:String>3</x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Image
+                                HeightRequest="50"
+                                Source="icon_add.png"
+                                WidthRequest="50">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT}, Dark={StaticResource PRIMARY_COLOR_DARK}}" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label
+                                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Add" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Spacing="2">
+                            <skeleton:SkeletonView
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                WidthRequest="50" />
+
+                            <skeleton:SkeletonView
+                                CornerRadius="6"
+                                HeightRequest="19"
+                                WidthRequest="60" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
