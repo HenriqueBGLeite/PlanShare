@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PlanShare.App.Views.Pages.User.Connection.UserConnectionJoinerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
+    xmlns:models="clr-namespace:PlanShare.App.Models"
+    xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:PlanShare.App.ViewModels.Pages.User.Connection"
+    x:Name="PageUserConnectionJoiner"
+    x:DataType="viewModel:UserConnectionJoinerViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding Path=BindingContext.InitializeCommand, Source={Reference PageUserConnectionJoiner}}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+
+    <Grid>
+        <VerticalStackLayout Spacing="20" VerticalOptions="Center">
+            <Label
+                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                FontSize="20"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="{Static resourceFile:ResourceTexts.PHRASE_CONNECTING_TO_THE_SERVER}">
+                <Label.Triggers>
+                    <DataTrigger
+                        Binding="{Binding StatusPage}"
+                        TargetType="Label"
+                        Value="{Static models:ConnectionByCodeStatusPage.JoinerConnectedPendingApproval}">
+                        <Setter Property="Text" Value="{Binding GeneratedBy, StringFormat={Static resourceFile:ResourceTexts.PHRASE_WAITING_APPROVAL_FROM}}" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <ActivityIndicator
+                HeightRequest="40"
+                IsRunning="True"
+                Color="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                        Dark={StaticResource HIGHLIGHT_COLOR_DARK}}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

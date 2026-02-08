@@ -8,6 +8,6 @@ public partial class UserCodeConnectionViewModel(INavigationService navigationSe
     [RelayCommand]
     public async Task UserCompletedCode(string code)
     {
-
+        await _navigationService.GoToAsync($"{RoutePages.USER_CONNECTION_JOINER_PAGE}?Code={code}");
     }
 }

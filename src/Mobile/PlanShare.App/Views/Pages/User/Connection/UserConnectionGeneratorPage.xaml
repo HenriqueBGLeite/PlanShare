@@ -3,6 +3,7 @@
     x:Class="PlanShare.App.Views.Pages.User.Connection.UserConnectionGeneratorPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:PlanShare.App.Converters"
     xmlns:fontFamily="clr-namespace:PlanShare.App.Constants"
     xmlns:models="clr-namespace:PlanShare.App.Models"
     xmlns:resourceFile="clr-namespace:PlanShare.App.Resources"
@@ -16,57 +17,121 @@
         <toolkit:EventToCommandBehavior Command="{Binding Path=BindingContext.InitializeCommand, Source={Reference PageUserConnectionGenerator}}" EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout>
-        <Image
-            Margin="0,40,0,50"
-            HorizontalOptions="Center"
-            Source="sweetcat.png" />
+    <ContentPage.Resources>
+        <converters:NameToAvatarNameConverter x:Key="nameToAvatarName" />
+    </ContentPage.Resources>
 
-        <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.TITLE_SHARE_TASK}" />
-
-        <Label Margin="0,0,0,30" Text="{Static resourceFile:ResourceTexts.SUBTITLE_CONNECTION_BY_CODE}" />
-
-        <skeletonLoading:SkeletonView
-            CornerRadius="10"
-            HeightRequest="80"
-            IsVisible="False"
-            WidthRequest="250">
-            <skeletonLoading:SkeletonView.Triggers>
+    <Grid>
+        <VerticalStackLayout>
+            <VerticalStackLayout.Triggers>
                 <DataTrigger
                     Binding="{Binding StatusPage}"
-                    TargetType="skeletonLoading:SkeletonView"
-                    Value="{Static models:ConnectionByCodeStatusPage.GeneratingCode}">
-                    <Setter Property="IsVisible" Value="True" />
+                    TargetType="VerticalStackLayout"
+                    Value="{Static models:ConnectionByCodeStatusPage.JoinerConnectedPendingApproval}">
+                    <Setter Property="IsVisible" Value="False" />
                 </DataTrigger>
-            </skeletonLoading:SkeletonView.Triggers>
-        </skeletonLoading:SkeletonView>
+            </VerticalStackLayout.Triggers>
 
-        <Label
-            CharacterSpacing="1"
-            FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
-            FontSize="60"
+            <Image
+                Margin="0,40,0,50"
+                HorizontalOptions="Center"
+                Source="sweetcat.png" />
+
+            <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.TITLE_SHARE_TASK}" />
+
+            <Label Margin="0,0,0,30" Text="{Static resourceFile:ResourceTexts.SUBTITLE_CONNECTION_BY_CODE}" />
+
+            <skeletonLoading:SkeletonView
+                CornerRadius="10"
+                HeightRequest="80"
+                IsVisible="False"
+                WidthRequest="250">
+                <skeletonLoading:SkeletonView.Triggers>
+                    <DataTrigger
+                        Binding="{Binding StatusPage}"
+                        TargetType="skeletonLoading:SkeletonView"
+                        Value="{Static models:ConnectionByCodeStatusPage.GeneratingCode}">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                </skeletonLoading:SkeletonView.Triggers>
+            </skeletonLoading:SkeletonView>
+
+            <Label
+                CharacterSpacing="1"
+                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                FontSize="60"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                Text="{Binding ConnectionCode}">
+                <Label.Triggers>
+                    <DataTrigger
+                        Binding="{Binding StatusPage}"
+                        TargetType="Label"
+                        Value="{Static models:ConnectionByCodeStatusPage.WaitingForJoiner}">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <BoxView
+                Margin="0,40,0,70"
+                HeightRequest="1"
+                Color="{AppThemeBinding Light={StaticResource LINES_COLOR_LIGHT},
+                                        Dark={StaticResource LINES_COLOR_DARK}}" />
+
+            <Button
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource DangerousButtonStyle}"
+                Text="{Static resourceFile:ResourceTexts.TITLE_CANCEL_OPERATION}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout
             HorizontalOptions="Center"
             IsVisible="False"
-            Text="{Binding ConnectionCode}">
-            <Label.Triggers>
+            VerticalOptions="Center">
+            <VerticalStackLayout.Triggers>
                 <DataTrigger
                     Binding="{Binding StatusPage}"
-                    TargetType="Label"
-                    Value="{Static models:ConnectionByCodeStatusPage.WaitingForJoiner}">
+                    TargetType="VerticalStackLayout"
+                    Value="{Static models:ConnectionByCodeStatusPage.JoinerConnectedPendingApproval}">
                     <Setter Property="IsVisible" Value="True" />
                 </DataTrigger>
-            </Label.Triggers>
-        </Label>
+            </VerticalStackLayout.Triggers>
 
-        <BoxView
-            Margin="0,40,0,70"
-            HeightRequest="1"
-            Color="{AppThemeBinding Light={StaticResource LINES_COLOR_LIGHT},
-                                    Dark={StaticResource LINES_COLOR_DARK}}" />
+            <toolkit:AvatarView
+                BackgroundColor="{AppThemeBinding Light={StaticResource AVATAR_COLOR_LIGHT},
+                                                  Dark={StaticResource AVATAR_COLOR_DARK}}"
+                BorderWidth="0"
+                CornerRadius="50"
+                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                FontSize="24"
+                HeightRequest="100"
+                ImageSource="{Binding JoinerUser.ProfilePhotoUrl}"
+                Text="{Binding JoinerUser.Name, Converter={StaticResource nameToAvatarName}}"
+                TextColor="{AppThemeBinding Light={StaticResource SECONDARY_COLOR_LIGHT},
+                                            Dark={StaticResource SECONDARY_COLOR_DARK}}"
+                WidthRequest="100" />
 
-        <Button
-            Command="{Binding CancelCommand}"
-            Style="{StaticResource DangerousButtonStyle}"
-            Text="{Static resourceFile:ResourceTexts.TITLE_CANCEL_OPERATION}" />
-    </VerticalStackLayout>
+            <Label
+                Margin="0,20,0,0"
+                FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}"
+                FontSize="30"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="{Binding JoinerUser.Name}" />
+
+            <Button
+                Margin="0,70,0,40"
+                BackgroundColor="{AppThemeBinding Light={StaticResource HIGHLIGHT_COLOR_LIGHT},
+                                                  Dark={StaticResource HIGHLIGHT_COLOR_DARK}}"
+                HeightRequest="60"
+                Text="{Static resourceFile:ResourceTexts.TITLE_ACCEPT}"
+                TextTransform="Uppercase" />
+
+            <Button
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource DangerousButtonStyle}"
+                Text="{Static resourceFile:ResourceTexts.TITLE_CANCEL_OPERATION}" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

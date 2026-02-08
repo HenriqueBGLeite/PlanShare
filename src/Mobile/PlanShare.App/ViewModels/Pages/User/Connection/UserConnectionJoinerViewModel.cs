@@ -9,38 +9,36 @@ using PlanShare.Communication.Responses;
 
 namespace PlanShare.App.ViewModels.Pages.User.Connection;
 
-public partial class UserConnectionGeneratorViewModel(INavigationService navigationService,
+[QueryProperty(nameof(Code), "Code")]
+public partial class UserConnectionJoinerViewModel(INavigationService navigationService,
     IUseRefreshTokenUseCase useRefreshTokenUseCase,
     IUserConnectionByCodeClient userConnectionByCodeClient) : ViewModelBase(navigationService)
 {
     private readonly HubConnection _connection = userConnectionByCodeClient.CreateClient();
 
+    public string Code { get; set; } = string.Empty;
+
     [ObservableProperty]
     public new partial ConnectionByCodeStatusPage StatusPage { get; set; }
 
     [ObservableProperty]
-    public partial string? ConnectionCode { get; set; }
+    public partial string GeneratedBy { get; set; } = string.Empty;
 
-    [ObservableProperty]
-    public partial JoinerUser JoinerUser { get; set; } = new();
 
     [RelayCommand]
     public async Task Initialize()
     {
-        StatusPage = ConnectionByCodeStatusPage.GeneratingCode;
+        StatusPage = ConnectionByCodeStatusPage.WaitingForJoiner;
 
         //Codigo temporário
         await useRefreshTokenUseCase.Execute();
 
         await _connection.StartAsync();
 
-        var result = await _connection.InvokeAsync<HubOperationResult<string>>("GenerateCode");
+        var result = await _connection.InvokeAsync<HubOperationResult<string>>("JoinWithCode", Code);
 
-        ConnectionCode = result.Response!;
+        GeneratedBy = result.Response!;
 
-        StatusPage = ConnectionByCodeStatusPage.WaitingForJoiner;
+        StatusPage = ConnectionByCodeStatusPage.JoinerConnectedPendingApproval;
     }
-
-    [RelayCommand]
-    public async Task Cancel() => await _navigationService.ClosePage();
 }

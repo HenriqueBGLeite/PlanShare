@@ -31,8 +31,8 @@
 
     <pinCodeAuthorization:CodePage.CodeViewer>
         <codeViewer:ShowCodeViewer
-            CodeColor="Transparent"
             Padding="10"
+            CodeColor="Transparent"
             CodeLength="6"
             CodeStrokeColor="{AppThemeBinding Light={StaticResource PRIMARY_COLOR_LIGHT},
                                               Dark={StaticResource PRIMARY_COLOR_DARK}}">
