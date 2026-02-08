@@ -10,6 +10,7 @@ public interface INavigationService
     Task GoToAsync(ShellNavigationState state, Dictionary<string, object> parameters);
     Task GoToDashboardPage();
     Task GoToOnBoardingPage();
+    Task ShowFailureFeedback(string message);
     Task<TResult> ShowPopup<TViewModel, TResult>()
         where TViewModel : ViewModelBaseForPopups
         where TResult : notnull;

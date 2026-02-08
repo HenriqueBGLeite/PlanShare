@@ -45,6 +45,29 @@ public class NavigationService(IPopupService popupService) : INavigationService
         await snackbar.Show();
     }
 
+    public async Task ShowFailureFeedback(string message)
+    {
+        var font = Microsoft.Maui.Font.OfSize(FontFamily.MAIN_FONT_BLACK, 14);
+        var actionButtonFont = Microsoft.Maui.Font.OfSize(FontFamily.SECONDARY_FONT_REGULAR, 14);
+
+        var snackbarOptions = new SnackbarOptions
+        {
+            BackgroundColor = Application.Current!.GetDangerColor(),
+            TextColor = Application.Current!.GetSecondaryColor(),
+            CornerRadius = new CornerRadius(10),
+            ActionButtonTextColor = Application.Current!.GetSecondaryColor(),
+            ActionButtonFont = actionButtonFont,
+            Font = font,
+            CharacterSpacing = 0.01
+        };
+
+        var duration = TimeSpan.FromSeconds(4);
+
+        var snackbar = Snackbar.Make(message, action: null, actionButtonText: ResourceTexts.TITLE_CLOSE, duration, snackbarOptions);
+
+        await snackbar.Show();
+    }
+
     public async Task<TResult> ShowPopup<TViewModel, TResult>() 
         where TViewModel : ViewModelBaseForPopups
         where TResult : notnull
