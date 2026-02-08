@@ -77,7 +77,7 @@
             </Image>
         </Grid>
 
-        <Label Style="{StaticResource PageTitle}" Text="{Static resourceFile:ResourceTexts.TASKS_SHARED_WITH}" />
+        <Label FontFamily="{Static fontFamily:FontFamily.MAIN_FONT_BLACK}" Text="{Static resourceFile:ResourceTexts.TASKS_SHARED_WITH}" />
 
         <Button
             Margin="0,-20,0,0"

@@ -9,11 +9,10 @@ using PlanShare.Communication.Responses;
 
 namespace PlanShare.App.ViewModels.Pages.User.Connection;
 
-public partial class UserConnectionGeneratorViewModel(INavigationService navigationService,
-    IUseRefreshTokenUseCase useRefreshTokenUseCase,
-    IUserConnectionByCodeClient userConnectionByCodeClient) : ViewModelBase(navigationService)
+public partial class UserConnectionGeneratorViewModel : ViewModelBase
 {
-    private readonly HubConnection _connection = userConnectionByCodeClient.CreateClient();
+    private readonly HubConnection _connection;
+    private readonly IUseRefreshTokenUseCase _useRefreshTokenUseCase;
 
     [ObservableProperty]
     public new partial ConnectionByCodeStatusPage StatusPage { get; set; }
@@ -24,13 +23,23 @@ public partial class UserConnectionGeneratorViewModel(INavigationService navigat
     [ObservableProperty]
     public partial JoinerUser JoinerUser { get; set; } = new();
 
+    public UserConnectionGeneratorViewModel(INavigationService navigationService,
+    IUseRefreshTokenUseCase useRefreshTokenUseCase,
+    IUserConnectionByCodeClient userConnectionByCodeClient) : base(navigationService)
+    {
+        _connection = userConnectionByCodeClient.CreateClient();
+        _useRefreshTokenUseCase = useRefreshTokenUseCase;
+
+        _connection.On<ResponseConnectionUserJson>("OnUserJoined", OnUserJoined);
+    }
+
     [RelayCommand]
     public async Task Initialize()
     {
         StatusPage = ConnectionByCodeStatusPage.GeneratingCode;
 
         //Codigo temporário
-        await useRefreshTokenUseCase.Execute();
+        await _useRefreshTokenUseCase.Execute();
 
         await _connection.StartAsync();
 
@@ -42,5 +51,32 @@ public partial class UserConnectionGeneratorViewModel(INavigationService navigat
     }
 
     [RelayCommand]
-    public async Task Cancel() => await _navigationService.ClosePage();
+    public async Task Cancel()
+    {
+        await _connection.InvokeAsync("Cancel", ConnectionCode);
+
+        await _connection.StopAsync();
+
+        await _navigationService.ClosePage();
+    }
+
+    [RelayCommand]
+    public async Task Approve()
+    {
+        await _connection.InvokeAsync("ConfirmCodeJoin", ConnectionCode);
+
+        await _connection.StopAsync();
+
+        await _navigationService.ClosePage();
+    }
+
+    private void OnUserJoined(ResponseConnectionUserJson response)
+    {
+        JoinerUser = new JoinerUser
+        {
+            Name = response.Name
+        };
+
+        StatusPage = ConnectionByCodeStatusPage.JoinerConnectedPendingApproval;
+    }
 }
